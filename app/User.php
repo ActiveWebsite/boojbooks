@@ -26,4 +26,22 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+    
+    /**
+     * Get user's books.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function books() {
+        return $this->hasMany('App\Book');
+    }
+    
+    /**
+     * Return the number of books in user's list.
+     *
+     * @return int
+     */
+    public function countBooks() {
+        return $this->books->count();
+    }
 }

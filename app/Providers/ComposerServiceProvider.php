@@ -2,22 +2,23 @@
 
 namespace App\Providers;
 
+use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 
-class AppServiceProvider extends ServiceProvider
+class ComposerServiceProvider extends ServiceProvider
 {
     /**
-     * Bootstrap any application services.
+     * Register bindings in the container.
      *
      * @return void
      */
     public function boot()
     {
-        
+        View::composer('books.edit', 'App\Http\ViewComposers\BookFormComposer');
     }
 
     /**
-     * Register any application services.
+     * Register the service provider.
      *
      * @return void
      */

@@ -17,20 +17,21 @@ class CreateBooksTable extends Migration
 			$table->softDeletes(); # XXX ALLOWS THE POSSIBILITY OF A TRASH BIN
 			
             $table->increments('id');
-			$table->integer('user')->unsigned();
+			$table->integer('user_id')->unsigned();
             $table->string('title');
             $table->string('author');
             $table->smallInteger('position')->unsigned();
-            $table->char('isbn13',13)->unsigned();
+            $table->char('isbn13',13)->unsigned()->nullable();
+            $table->date('publication_date')->nullable();
             $table->timestamps();
 			
-			$table->foreign('user')->references('id')->on('users')->onDelete('cascade');
+			$table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
 			
-			$table->unique(['user','position']);
-			$table->unique(['user','isbn13']);
-			$table->unique(['user','title','author']);
+			$table->unique(['user_id','position']);
+			#$table->unique(['user','isbn13']); XXX SHOULD ISBN BE OPTIONAL OR REQUIRED AND UNIQUE?
+			$table->unique(['user_id','title','author']);
 			
-			$table->index('user');
+			$table->index('user_id');
 			$table->index('author');
         });
     }
