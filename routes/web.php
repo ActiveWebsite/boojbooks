@@ -19,4 +19,6 @@ Auth::routes();
 
 #Route::get('/home', 'HomeController@index')->name('home'); XXX
 Route::get('/home', 'BookController@index')->name('home');
+Route::put('books/{id}/moveup', 'BookController@moveup')->name('books.moveup');
+Route::put('books/{id}/movedown', 'BookController@movedown')->name('books.movedown');
 Route::resource('books', 'BookController');

@@ -20,7 +20,9 @@
                         <thead>
                             <tr>
                                 <th></th>
-                                <th>Book</th>
+                                <th class="text-center"><a href="{{ route(Route::currentRouteName(), ['desc'=>($orderby === 'position' && $desc === false) ? true : null]) }}">#</a></th>
+                                <th><a href="{{ route(Route::currentRouteName(), ['orderby'=>'title', 'desc'=>($orderby === 'title' && $desc === false) ? true : null]) }}">Title</a></th>
+                                <th><a href="{{ route(Route::currentRouteName(), ['orderby'=>'author', 'desc'=>($orderby === 'author' && $desc === false) ? true : null]) }}">Author</a></th>
                                 <th>Date Added</th>
                                 <th></th>
                             </tr>
@@ -28,13 +30,31 @@
                         <tbody>
                         @foreach($books as $key=>$value)
                             <tr>
-                                <td>{{ $value->position }}</td>
-                                <td><a href="{{ URL::to('books/'.$value->id) }}"><i>{{ $value->title }}</i> ({{ $value->author }})</a></td>
+                                <td class="text-center">
+                                    @if ($key > 0)
+                                    {{ Form::open(['method' => 'PUT', 'route' => ['books.moveup', $value->id]]) }}
+                                        {{ Form::hidden('id', $value->id) }}
+                                        {{ Form::submit('Up', ['class' => 'btn btn-xs btn-info', 'style' => 'width: 3.5em;']) }}
+                                    {{ Form::close() }}
+                                    @endif
+                                    @if ($key < count($books)-1)
+                                    {{ Form::open(['method' => 'PUT', 'route' => ['books.movedown', $value->id]]) }}
+                                        {{ Form::hidden('id', $value->id) }}
+                                        {{ Form::submit('Down', ['class' => 'btn btn-xs btn-info', 'style' => 'width: 3.5em;']) }}
+                                    {{ Form::close() }}
+                                    @endif
+                                </td>
+                                <td class="text-center">{{ $value->position + 1 }}</td>
+                                <td><a href="{{ URL::to('books/'.$value->id) }}"><i>{{ $value->title }}</i></a></td>
+                                <td>{{ $value->author }}</td>
                                 <td>{{ $value->created_at->format('F j, Y') }}</td>
                                 
                                 <td>
-                                    <a class="btn btn-small btn-info" href="{{ route('books.edit',$value->id) }}">Edit</a>
-                                    <a class="btn btn-small btn-info" href="{{ route('books.destroy',$value->id) }}">Delete</a>
+                                    {{ Form::open(['method' => 'DELETE', 'route' => ['books.destroy', $value->id]]) }}
+                                        <a class="btn btn-small btn-info" href="{{ route('books.edit', $value->id) }}">Edit</a>
+                                        {{ Form::hidden('id', $value->id) }}
+                                        {{ Form::submit('Delete', ['class' => 'btn btn-danger', 'onclick' => 'return confirm("Are you sure?")']) }}
+                                    {{ Form::close() }}
                                 </td>
                             </tr>
                         @endforeach

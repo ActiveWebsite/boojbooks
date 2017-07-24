@@ -32,7 +32,8 @@ class User extends Authenticatable
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function books() {
+    public function books()
+    {
         return $this->hasMany('App\Book');
     }
     
@@ -41,7 +42,8 @@ class User extends Authenticatable
      *
      * @return int
      */
-    public function countBooks() {
+    public function countBooks()
+    {
         return $this->books->count();
     }
 }

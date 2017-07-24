@@ -1,8 +1,6 @@
--Create book.show view
--Create Book show() method
--Create Book delete() method
 -Reorder books
 -Remove home.blade and HomeController
--Remove/exit BookRequest.php
+-Remove BookRequest.php
+-Remove BookFormComposer.php
 -Seed database
 -Unit tests

@@ -23,14 +23,14 @@ class BookFormComposer
      * @return void
      */
     public function compose(View $view)
-    {
-        $with = array_merge([
+    { # FIXME
+        /*$with = array_merge([
             'title' => '',
             'author' => '',
             'publication_date' => '',
             'isbn13' => ''
-        ], $view->getData());
+        ], $view->getData());*/
         
-        $view->with($with);
+        #$view->with($with);
     }
 }
