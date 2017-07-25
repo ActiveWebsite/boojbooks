@@ -44,7 +44,7 @@
     {!! Form::label('isbn13', 'ISBN-13', ['class'=>'col-md-4 control-label']) !!}
 
     <div class="col-md-6">
-        {!! Form::text('isbn13', null, ['class'=>'form-control', 'title'=>'13 digit ISBN.', 'size'=>'13', 'pattern'=>'^\d*$']) !!}
+        {!! Form::text('isbn13', null, ['class'=>'form-control', 'title'=>'13 digit ISBN.', 'size'=>'13', 'pattern'=>'^\d{13}$']) !!}
 
         @if ($errors->has('isbn13'))
             <span class="help-block">

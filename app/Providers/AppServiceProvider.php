@@ -13,7 +13,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        
+        \DB::statement(\DB::raw('PRAGMA foreign_keys = ON;'));
     }
 
     /**

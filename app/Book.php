@@ -7,7 +7,6 @@ use Illuminate\Support\Facades\DB;
 
 class Book extends Model
 {
-    #use \Rutorika\Sortable\SortableTrait;
     
     /**
      * The table associated with the model.
@@ -29,8 +28,6 @@ class Book extends Model
 	 * @var array
 	 */
 	protected $hidden = [];
-    
-    #protected static $sortableGroupField = 'user_id';
 
 	/**
 	 * Get book owner.
