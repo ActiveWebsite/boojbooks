@@ -11,10 +11,13 @@ class UsersTableSeeder extends Seeder
      */
     public function run()
     {
+    	DB::table('books')->truncate();
     	DB::table('users')->truncate();
 
         factory(App\User::class, 2)->create()->each(function ($u) {
             $n = 10;
+            
+            # RANDOMIZE BOOK ORDER
             $orders = range(0, $n);
             shuffle($orders);
             $books = factory(App\Book::class, $n)->make();
@@ -22,6 +25,9 @@ class UsersTableSeeder extends Seeder
             foreach ($books as $key=>$value) {
                 $books[$key]->position = $orders[$key];
             }
+            
+            # ENSURE TWO BOOKS HAVE THE SAME AUTHOR
+            $books[8]->author = $books[3]->author;
             
             $u->books()->saveMany($books);
         });

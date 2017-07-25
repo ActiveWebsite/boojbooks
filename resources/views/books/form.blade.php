@@ -57,6 +57,7 @@
 
 <div class="form-group">
     <div class="col-md-6 col-md-offset-4">
+        <a class="btn btn-small btn-info" href="{{ URL::previous() === route('books.index') ? route('books.index') : route('books.show', $book->id) }}">Cancel</a>
         {!! Form::submit('Submit', ['class' => 'btn btn-primary']) !!}
     </div>
 </div>

@@ -162,7 +162,7 @@ class BookController extends Controller
         $book->publication_date = $request->input('publication_date');
         $book->save();
         
-        session()->flash('message', 'Successfully added new book!');
+        session()->flash('message', 'Successfully modified ' . $book->title . '!');
         return redirect('books');
     }
 
@@ -180,7 +180,7 @@ class BookController extends Controller
         $title = $book->title;
         $book->delete();
         
-        session()->flash('message', '<i>' . $title . '</i> has been removed from your list.');
+        session()->flash('message', $title . ' has been removed from your list.');
         return redirect('books');
     }
 

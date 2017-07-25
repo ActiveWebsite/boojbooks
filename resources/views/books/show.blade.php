@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@section('title', $book->title)
+
 @section('content')
 <div class="container">
     <div class="row">
@@ -21,7 +23,7 @@
                     </div>
                     <div class="row">
                         <div class="col-md-6"><span class="pull-right">Publication Date</span></div>
-                        <div class="col-md-6">{{ $book->publication_date }}</div>
+                        <div class="col-md-6">{{ date('F j, Y', strtotime($book->publication_date)) }}</div>
                     </div>
                     <div class="row">
                         <div class="col-md-12">

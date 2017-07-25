@@ -26,17 +26,11 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 $factory->define(App\Book::class, function (Faker\Generator $faker) {
     # GENERATE SMALL LIST OF AUTHORS
-    $n = 9;
-    $authors = [];
-    for ($i=0;$i<=$n;++$i) {
-        $authors[] = $faker->lastName . ', ' . $faker->firstName;
-    }
-    
     return [
         'position' => 0, # POSITIONS WILL BE RANDOMIZED IN THE SEEDER
         'title' => $faker->name,
-        'author' => $authors[mt_rand(0, $n)],
+        'author' => $faker->lastName . ', ' . $faker->firstName,
         'publication_date' => $faker->dateTimeBetween('1900-01-01','yesterday'),
-        'isbn13' => '978' . str_random(10)
+        'isbn13' => '978' . rand(pow(10, 9), pow(10, 10)-1)
     ];
 });

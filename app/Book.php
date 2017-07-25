@@ -2,11 +2,14 @@
 
 namespace App;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
+use Collective\Html\Eloquent\FormAccessible;
 
 class Book extends Model
 {
+    use FormAccessible;
     
     /**
      * The table associated with the model.
@@ -38,6 +41,28 @@ class Book extends Model
     {
 		return $this->belongsTo('App\User');
 	}
+
+    /**
+     * Get the book's publication date.
+     *
+     * @param  string  $value
+     * @return string
+     */
+    public function getPublicationDateAttribute($value)
+    {
+        return Carbon::parse($value)->format('m/d/Y');
+    }
+
+    /**
+     * Get the book's publication date for forms.
+     *
+     * @param  string  $value
+     * @return string
+     */
+    public function formPublicationDateAttribute($value)
+    {
+        return Carbon::parse($value)->format('Y-m-d');
+    }
 
 	/**
 	 * Repair the order column.

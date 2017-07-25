@@ -1,6 +1,4 @@
--Reorder books
--Remove home.blade and HomeController
--Remove BookRequest.php
 -Remove BookFormComposer.php
--Seed database
 -Unit tests
+-Possibly add image upload
+-Possibly add JQuery

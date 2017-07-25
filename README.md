@@ -15,12 +15,4 @@ Please use the [ORM](https://laravel.com/docs/5.2/eloquent) rather than crafting
 * Handle image uploading while adding books to the list
 * Do something fancy like integrating an external API or handling user authentication
 
-<hr />
-
-## Usage
-
-## Future Feature Ideas
-* Add AJAX/JQuery sorting
-* Replace manual book data entry with automatic fetching from database
-
 
