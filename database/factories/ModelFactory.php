@@ -30,7 +30,7 @@ $factory->define(App\Book::class, function (Faker\Generator $faker) {
         'position' => 0, # POSITIONS WILL BE RANDOMIZED IN THE SEEDER
         'title' => $faker->name,
         'author' => $faker->lastName . ', ' . $faker->firstName,
-        'publication_date' => $faker->dateTimeBetween('1900-01-01','yesterday'),
+        'publication_date' => $faker->dateTimeBetween('1900-01-01', 'yesterday'),
         'isbn13' => '978' . rand(pow(10, 9), pow(10, 10)-1)
     ];
 });

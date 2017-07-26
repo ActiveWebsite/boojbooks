@@ -23,7 +23,7 @@ class BookFormComposer
      * @return void
      */
     public function compose(View $view)
-    { # FIXME
+    { # FIXME DELETE
         /*$with = array_merge([
             'title' => '',
             'author' => '',

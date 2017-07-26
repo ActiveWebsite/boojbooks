@@ -27,7 +27,6 @@ class CreateBooksTable extends Migration
 			
 			$table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
 			
-			$table->unique(['user_id','position']);
 			#$table->unique(['user','isbn13']); XXX SHOULD ISBN BE OPTIONAL OR REQUIRED AND UNIQUE?
 			$table->unique(['user_id','title','author']);
 			
@@ -44,5 +43,6 @@ class CreateBooksTable extends Migration
     public function down()
     {
         Schema::dropIfExists('books');
+        \Storage::deleteDirectory('public/covers/');
     }
 }

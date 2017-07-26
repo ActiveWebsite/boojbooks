@@ -9,9 +9,9 @@
             <div class="panel panel-default">
                 <div class="panel-heading">Edit Book</div>
                 <div class="panel-body">
-                    {!! Form::model($book, ['method' => 'PUT', 'route' => ['books.update', $book->id], 'class' => 'form-horizontal']) !!}
+                    {{ Form::model($book, ['method' => 'PUT', 'route' => ['books.update', $book->id], 'files' => true, 'class' => 'form-horizontal']) }}
                     @include('books.form')
-                    {!! Form::close() !!}
+                    {{ Form::close() }}
                 </div>
             </div>
         </div>

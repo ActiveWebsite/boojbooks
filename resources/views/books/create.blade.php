@@ -9,9 +9,9 @@
             <div class="panel panel-default">
                 <div class="panel-heading">Add Book</div>
                 <div class="panel-body">
-                    {!! Form::open(['route' => 'books.store', 'class' => 'form-horizontal']) !!}
+                    {{ Form::open(['route' => 'books.store', 'files' => true, 'class' => 'form-horizontal']) }}
                     @include('books.form')
-                    {!! Form::close() !!}
+                    {{ Form::close() }}
                 </div>
             </div>
         </div>

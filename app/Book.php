@@ -5,6 +5,7 @@ namespace App;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Http\UploadedFile;
 use Collective\Html\Eloquent\FormAccessible;
 
 class Book extends Model
@@ -31,6 +32,26 @@ class Book extends Model
 	 * @var array
 	 */
 	protected $hidden = [];
+    
+    /**
+     * Cover image storage path.
+     *
+     * @var array
+     */
+    protected $covers = 'public/covers';
+    
+    /**
+     * Supported cover image types.
+     *
+     * @var array
+     */
+    protected $coverExts = 
+        [
+            'gif',
+            'jpg',
+            'jpeg',
+            'png'
+        ];
 
 	/**
 	 * Get book owner.
@@ -83,6 +104,19 @@ class Book extends Model
 	}
 
 	/**
+	 * Delete the model.
+	 * 
+	 * @return void
+	 */
+	public function delete()
+    {
+        # WE DO NOT DELETE THE IMAGE BECAUSE BOOKS ARE SET TO SOFT DELETE
+        parent::delete();
+        
+        $this->resort();
+	}
+
+	/**
 	 * Move book up in list.
 	 * 
 	 * @return void
@@ -126,5 +160,66 @@ class Book extends Model
             $book2->save();
             DB::commit();
         }
+	}
+
+	/**
+	 * Get cover image path.
+	 * 
+	 * @return string|bool
+	 */
+	public function getCoverPath()
+    {
+        $ext = $this->hasCover();
+        if ($ext) {
+            return \Storage::url($this->covers . '/' . $this->id . '.' . $ext);
+        }
+        
+        return false;
+	}
+
+	/**
+	 * Check if book has a cover image stored and return the extension.
+	 * 
+	 * @return string|bool
+	 */
+	public function hasCover()
+    {
+        foreach ($this->coverExts as $ext) {
+            if (\Storage::disk('local')->exists($this->covers . '/' . $this->id . '.' . $ext)) {
+                return $ext;
+            }
+        }
+        
+        return false;
+	}
+
+	/**
+	 * Delete cover image.
+	 * 
+	 * @return bool
+	 */
+	public function deleteCover()
+    {
+        $ext = $this->hasCover();
+        if ($ext) {
+            return \Storage::delete($this->covers . '/' . $this->id . '.' . $ext);
+        }
+        
+        return true;
+	}
+
+	/**
+	 * Store cover image from form.
+	 * 
+     * @param  string  $file
+	 * @return string|bool
+	 */
+	public function storeFormCover(UploadedFile $file)
+    {
+        if (!in_array($file->extension(), $this->coverExts)) { # INVALID EXTENSION
+            return false;
+        }
+        $this->deleteCover();
+        return $file->storeAs($this->covers, $this->id . '.' . $file->extension());
 	}
 }

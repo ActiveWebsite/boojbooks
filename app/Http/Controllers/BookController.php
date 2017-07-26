@@ -9,6 +9,13 @@ class BookController extends Controller
 {
     
     /**
+     * Cover image storage path.
+     *
+     * @var array
+     */
+    protected $covers = 'public/covers';
+        
+    /**
      * Book validation rules.
      *
      * @var array
@@ -21,13 +28,19 @@ class BookController extends Controller
             'required',
             'regex:/.+, .+/'
         ],
-        'publication_date' => [],
+        'publication_date' => [
+            'nullable',
+            'date_format:Y-m-d'
+        ],
         'isbn13' => [
-            'present',
             'nullable',
             'size:13',
             'regex:/^\d*$/'
         ],
+        'cover' => [
+            'image',
+            'mimetypes:image/gif,image/jpeg,image/png'
+        ]
     ];
     
     /**
@@ -94,13 +107,17 @@ class BookController extends Controller
         $position = \Auth::user()->countBooks();
         
         $book = new Book;
+        $book->user_id = auth()->user()->id;
         $book->title = filter_var($request->input('title'), FILTER_SANITIZE_STRING);
         $book->author = filter_var($request->input('author'), FILTER_SANITIZE_STRING);
+        $book->isbn13 = filter_var($request->input('isbn13'), FILTER_SANITIZE_STRING);
+        $book->publication_date = !empty($request->input('publication_date')) ? $request->input('publication_date') : null;
         $book->position = $position;
-        $book->isbn13 = $request->input('isbn13');
-        $book->publication_date = $request->input('publication_date');
-        $book->user_id = auth()->user()->id;
         $book->save();
+        
+        if ($request->hasFile('cover') && $request->file('cover')->isValid()) {
+            $book->storeFormCover($request->file('cover'));
+        }
         
         session()->flash('message', 'Successfully added new book!');
         return redirect('books');
@@ -115,11 +132,15 @@ class BookController extends Controller
      */
     public function show($id)
     {
+        # FIXME THERE IS CURRENTLY A BUG WHERE ELOQUENT RETURNS TODAY'S
+        # DATE FOR NULL VALUES OF publication_date (NOTE THAT THIS BUG
+        # DOES NOT SEEM TO AFFECT THE deleted_at COLUMN)
         $user = \Auth::user();
         $book = $user->books()->where('id', $id)->firstOrFail();
 
         return view('books.show')->with([
-            'book'=>$book
+            'imagePath'=>$book->getCoverPath(),
+            'book'=>$book,
         ]);
     }
 
@@ -137,6 +158,7 @@ class BookController extends Controller
 
         return view('books.edit')->with([
             'book'=>$book,
+            'hasImage'=>$book->hasCover() ? true : false,
             'message'=>session()->get('message')
         ]);
     }
@@ -155,15 +177,20 @@ class BookController extends Controller
         
         $user = \Auth::user();
         $book = $user->books()->where('id', $id)->firstOrFail();
-        
         $book->title = filter_var($request->input('title'), FILTER_SANITIZE_STRING);
         $book->author = filter_var($request->input('author'), FILTER_SANITIZE_STRING);
-        $book->isbn13 = $request->input('isbn13');
-        $book->publication_date = $request->input('publication_date');
+        $book->isbn13 = filter_var($request->input('isbn13'), FILTER_SANITIZE_STRING);
+        $book->publication_date = !empty($request->input('publication_date')) ? $request->input('publication_date') : null;
         $book->save();
         
+        if (filter_var($request->input('delete_cover'), FILTER_VALIDATE_BOOLEAN)) {
+            $book->deleteCover();
+        } else if ($request->hasFile('cover') && $request->file('cover')->isValid()) {
+            $book->storeFormCover($request->file('cover'));
+        }
+        
         session()->flash('message', 'Successfully modified ' . $book->title . '!');
-        return redirect('books');
+        return $request->input('return') === 'books.show' ? redirect()->route('books.show', $book->id) : redirect()->route('books.index');
     }
 
     /**
