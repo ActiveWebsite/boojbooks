@@ -63,6 +63,17 @@ class Book extends Model
 		return $this->belongsTo('App\User');
 	}
 
+    /**
+     * Get the book's publication date for forms.
+     *
+     * @param  string  $value
+     * @return string
+     */
+    public function formPublicationDateAttribute($value)
+    {
+        return !empty($value) ? Carbon::parse($value)->format('Y-m-d') : null;
+    }
+
 	/**
 	 * Repair the order column.
 	 * 

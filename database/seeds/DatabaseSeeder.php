@@ -11,10 +11,14 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-		DB::statement('SET FOREIGN_KEY_CHECKS=0;'); # NEEDED TO ALLOW TRUNCATION OF TABLES WITH FOREIGN KEYS
+        if (env('DB_CONNECTION') === 'mysql') { # NEEDED TO ALLOW TRUNCATION OF TABLES WITH FOREIGN KEYS IN MYSQL
+            DB::statement('SET FOREIGN_KEY_CHECKS=0;');
+        }
         
         $this->call(UsersTableSeeder::class);
         
-		DB::statement('SET FOREIGN_KEY_CHECKS=1;');
+        if (env('DB_CONNECTION') === 'mysql') {
+            DB::statement('SET FOREIGN_KEY_CHECKS=0;');
+        }
     }
 }
