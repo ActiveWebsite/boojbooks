@@ -25,4 +25,4 @@ Please use the [ORM](https://laravel.com/docs/5.2/eloquent) rather than crafting
 * Run the migrations and, optionally, the seeds to generate the database tables.
 
 ## Live Test
-A live test can be found at (http://parasolarchives.com/site/booj/public). Note that because this website runs on a shared host that does not support symbolic links, image uploading has been disabled.
+A live test can be found at (http://parasolarchives.com/site/booj/public). To login, the email address *x@y.com* with password *secret* can be used. Note that because this website runs on a shared host that does not support symbolic links, image uploading has been disabled.
