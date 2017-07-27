@@ -67,6 +67,19 @@ class Book extends Model
         static::addGlobalScope(new UserScope); # ONLY LOAD CURRENT USER'S BOOKS
     }
 
+    /**
+     * Create a new Eloquent model instance.
+     *
+     * @param  array  $attributes
+     * @return void
+     */
+    public function __construct(array $attributes = [])
+    {
+        parent::__construct($attributes);
+        
+        #$this->position = $this->position ?: $this->user->countBooks(); FIXME
+    }
+
 	/**
 	 * Get book owner.
 	 * 
@@ -127,6 +140,18 @@ class Book extends Model
         parent::delete();
         
         $this->resort();
+	}
+
+	/**
+	 * Save model.
+	 * 
+	 * @param  arrat  $options
+	 * @return void
+	 */
+	public function save(array $options = [])
+    {
+        $this->position = $this->position ?: $this->user->countBooks(); # DEFAULT POSITION IS LAST
+        parent::save($options);
 	}
 
 	/**

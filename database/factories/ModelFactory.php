@@ -25,7 +25,6 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 $factory->define(App\Book::class, function (Faker\Generator $faker) {
-    # GENERATE SMALL LIST OF AUTHORS
     return [
         'position' => 0, # POSITIONS WILL BE RANDOMIZED IN THE SEEDER
         'title' => $faker->name,

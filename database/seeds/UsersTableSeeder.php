@@ -1,7 +1,6 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use App\Book;
 
 class UsersTableSeeder extends Seeder
 {
@@ -33,7 +32,7 @@ class UsersTableSeeder extends Seeder
             $u->books()->saveMany($books);
         });
         
-        # REDEFINE EMAIL ADDRESS OF FIRST USER TO SIMPLIFY LOGIN
+        # XXX REDEFINE EMAIL ADDRESS OF FIRST USER TO SIMPLIFY LOGIN
         $user1 = App\User::find(1);
         $user1->email = 'x@y.com';
         $user1->save();

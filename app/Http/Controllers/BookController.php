@@ -101,8 +101,6 @@ class BookController extends Controller
     {
         $this->validate($request, $this->rules);
         
-        $position = Auth::user()->countBooks(); # DEFAULT POSITION IS LAST
-        
         # FIXME MINOR DRY VIOLATION, CONSOLIDATE IF APP BECOMES MORE COMPLEX
         $book = new Book;
         $book->user_id = Auth::user()->id;
@@ -110,7 +108,6 @@ class BookController extends Controller
         $book->author = filter_var($request->input('author'), FILTER_SANITIZE_STRING);
         $book->isbn13 = filter_var($request->input('isbn13'), FILTER_SANITIZE_STRING);
         $book->publication_date = filter_var($request->input('publication_date'), FILTER_SANITIZE_STRING);
-        $book->position = $position;
         $book->save();
         
         if ($request->hasFile('cover') && $request->file('cover')->isValid()) {
