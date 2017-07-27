@@ -21,7 +21,7 @@ class CreateBooksTable extends Migration
             $table->string('title');
             $table->string('author');
             $table->smallInteger('position')->unsigned();
-            $table->char('isbn13',13)->unsigned()->nullable();
+            $table->char('isbn13',13)->nullable();
             $table->date('publication_date')->nullable();
             $table->timestamps();
 			

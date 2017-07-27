@@ -11,28 +11,28 @@
                         <div class="alert alert-info">{{ Session::get('message') }}</div>
                     @endif
                     
-                    <div class="col-md-4">
-                        @if (!empty($imagePath))
-                            <img src="{{ asset($imagePath) }}" alt="{{ $book->title }}" title="{{ $book->title }}" class="img-responsive img-thumbnail">
-                        @endif
-                    </div>
                     <div class="row">
+                        <div class="col-md-4">
+                            @if (!empty($imagePath))
+                                <img src="{{ asset($imagePath) }}" alt="{{ $book->title }}" title="{{ $book->title }}" class="img-responsive img-thumbnail">
+                            @endif
+                        </div>
                         <div class="col-md-8">
                             <div class="row">
-                                <div class="col-md-6"><span class="pull-right">Title</span></div>
-                                <div class="col-md-6">{{ $book->title }}</div>
+                                <div class="col-md-4"><span class="pull-right">Title</span></div>
+                                <div class="col-md-8">{{ $book->title }}</div>
                             </div>
                             <div class="row">
-                                <div class="col-md-6"><span class="pull-right">Author</span></div>
-                                <div class="col-md-6">{{ $book->author }}</div>
+                                <div class="col-md-4"><span class="pull-right">Author</span></div>
+                                <div class="col-md-8">{{ $book->author }}</div>
                             </div>
                             <div class="row">
-                                <div class="col-md-6"><span class="pull-right">ISBN-13</span></div>
-                                <div class="col-md-6">{{ $book->isbn13 }}</div>
+                                <div class="col-md-4"><span class="pull-right">ISBN-13</span></div>
+                                <div class="col-md-8">{{ $book->isbn13 }}</div>
                             </div>
                             <div class="row">
-                                <div class="col-md-6"><span class="pull-right">Publication Date</span></div>
-                                <div class="col-md-6">{{ !empty($book->publication_date) ? date('F j, Y', strtotime($book->publication_date)) : '' }}</div>
+                                <div class="col-md-4"><span class="pull-right">Publication Date</span></div>
+                                <div class="col-md-8">{{ !empty($book->publication_date) ? date('F j, Y', strtotime($book->publication_date)) : '' }}</div>
                             </div>
                         </div>
                     </div>

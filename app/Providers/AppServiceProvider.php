@@ -13,7 +13,11 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        \DB::statement(\DB::raw('PRAGMA foreign_keys = ON;'));
+        if (env('DB_CONNECTION') === 'sqlite') { # ENABLE FOREIGN KEYS IF USING SQLITE
+            \DB::statement(\DB::raw('PRAGMA foreign_keys = ON;'));
+        } else if (env('DB_CONNECTION') === 'mysql') { # FIX FOR MARIADB < 10.2
+            \Schema::defaultStringLength(191);
+        }
     }
 
     /**

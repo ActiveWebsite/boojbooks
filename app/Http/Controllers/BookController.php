@@ -26,7 +26,7 @@ class BookController extends Controller
         ],
         'author' => [
             'required',
-            'regex:/.+, .+/'
+            'regex:/.+, .+/' # AUTHORS MUST BE IN THE FORM LAST, FIRST
         ],
         'publication_date' => [
             'nullable',
@@ -39,7 +39,8 @@ class BookController extends Controller
         ],
         'cover' => [
             'image',
-            'mimetypes:image/gif,image/jpeg,image/png'
+            'mimetypes:image/gif,image/jpeg,image/png',
+            'max:5000'
         ]
     ];
     
@@ -65,7 +66,7 @@ class BookController extends Controller
         $orderby = 'position';
         $desc = filter_input(INPUT_GET, 'desc', FILTER_VALIDATE_BOOLEAN) === true ? true : false;
         
-        switch (filter_input(INPUT_GET, 'orderby', FILTER_UNSAFE_RAW)) {
+        switch (filter_input(INPUT_GET, 'orderby', FILTER_UNSAFE_RAW)) { # DETERMINE ORDERING
             case 'title':
                 $orderby = 'title';
                 break;
@@ -104,14 +105,14 @@ class BookController extends Controller
     {
         $this->validate($request, $this->rules);
         
-        $position = \Auth::user()->countBooks();
+        $position = \Auth::user()->countBooks(); # DEFAULT POSITION IS LAST
         
         $book = new Book;
         $book->user_id = auth()->user()->id;
         $book->title = filter_var($request->input('title'), FILTER_SANITIZE_STRING);
         $book->author = filter_var($request->input('author'), FILTER_SANITIZE_STRING);
         $book->isbn13 = filter_var($request->input('isbn13'), FILTER_SANITIZE_STRING);
-        $book->publication_date = !empty($request->input('publication_date')) ? $request->input('publication_date') : null;
+        $book->publication_date = !empty($request->input('publication_date')) ? filter_var($request->input('publication_date'), FILTER_SANITIZE_STRING) : null;
         $book->position = $position;
         $book->save();
         
@@ -132,12 +133,9 @@ class BookController extends Controller
      */
     public function show($id)
     {
-        # FIXME THERE IS CURRENTLY A BUG WHERE ELOQUENT RETURNS TODAY'S
-        # DATE FOR NULL VALUES OF publication_date (NOTE THAT THIS BUG
-        # DOES NOT SEEM TO AFFECT THE deleted_at COLUMN)
         $user = \Auth::user();
         $book = $user->books()->where('id', $id)->firstOrFail();
-
+        
         return view('books.show')->with([
             'imagePath'=>$book->getCoverPath(),
             'book'=>$book,
@@ -158,8 +156,7 @@ class BookController extends Controller
 
         return view('books.edit')->with([
             'book'=>$book,
-            'hasImage'=>$book->hasCover() ? true : false,
-            'message'=>session()->get('message')
+            'hasImage'=>$book->hasCover() ? true : false # DETERMINES WHETHER TO SHOW THE DELETE CHECKBOX
         ]);
     }
 
@@ -180,7 +177,7 @@ class BookController extends Controller
         $book->title = filter_var($request->input('title'), FILTER_SANITIZE_STRING);
         $book->author = filter_var($request->input('author'), FILTER_SANITIZE_STRING);
         $book->isbn13 = filter_var($request->input('isbn13'), FILTER_SANITIZE_STRING);
-        $book->publication_date = !empty($request->input('publication_date')) ? $request->input('publication_date') : null;
+        $book->publication_date = !empty($request->input('publication_date')) ? filter_var($request->input('publication_date'), FILTER_SANITIZE_STRING) : null;
         $book->save();
         
         if (filter_var($request->input('delete_cover'), FILTER_VALIDATE_BOOLEAN)) {
@@ -190,7 +187,7 @@ class BookController extends Controller
         }
         
         session()->flash('message', 'Successfully modified ' . $book->title . '!');
-        return $request->input('return') === 'books.show' ? redirect()->route('books.show', $book->id) : redirect()->route('books.index');
+        return $request->input('return') === 'books.show' ? redirect()->route('books.show', $book->id) : redirect()->route('books.index'); # RETURN TO BOOK'S PAGE OR BOOK INDEX
     }
 
     /**
