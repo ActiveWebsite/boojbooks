@@ -4,7 +4,7 @@
     {{ Form::label('title', 'Title', ['class'=>'col-md-4 control-label']) }}
 
     <div class="col-md-6">
-        {{ Form::text('title', null, ['class'=>'form-control', 'required'=>true, 'autofocus'=>true]) }}
+        {{ Form::text('title', null, ['class'=>'form-control', 'required'=>true, 'maxlength'=>'255', 'autofocus'=>true]) }}
 
         @if ($errors->has('title'))
             <span class="help-block">
@@ -18,7 +18,7 @@
     {{ Form::label('author', 'Author', ['class'=>'col-md-4 control-label']) }}
 
     <div class="col-md-6">
-        {{ Form::text('author', null, ['class'=>'form-control', 'title'=>'Last, First', 'placeholder'=>'Last, First', 'required'=>true, 'pattern'=>'.+, .+']) }}
+        {{ Form::text('author', null, ['class'=>'form-control', 'maxlength'=>'255', 'title'=>'Last, First', 'placeholder'=>'Last, First', 'required'=>true, 'pattern'=>'.+, .+']) }}
 
         @if ($errors->has('author'))
             <span class="help-block">
@@ -43,7 +43,7 @@
 </div>
 
 <div class="form-group{{ $errors->has('isbn13') ? ' has-error' : '' }}">
-    {{ Form::label('isbn13', 'ISBN-13', ['class'=>'col-md-4 control-label']) }}
+    {{ Form::label('isbn13', 'ISBN-13', ['class'=>'col-md-4 control-label', 'maxlength'=>'13']) }}
 
     <div class="col-md-6">
         {{ Form::text('isbn13', null, ['class'=>'form-control', 'title'=>'13 digit ISBN.', 'size'=>'13', 'pattern'=>'^\d{13}$']) }}

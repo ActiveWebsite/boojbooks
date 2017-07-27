@@ -14,7 +14,7 @@ class CreateBooksTable extends Migration
     public function up()
     {
         Schema::create('books', function (Blueprint $table) {
-			$table->softDeletes(); # XXX ALLOWS THE POSSIBILITY OF A TRASH BIN
+			$table->softDeletes(); # ALLOWS THE POSSIBILITY OF IMPLEMENTING A TRASH BIN
 			
             $table->increments('id');
 			$table->integer('user_id')->unsigned();

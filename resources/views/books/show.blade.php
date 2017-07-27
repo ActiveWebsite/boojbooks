@@ -12,12 +12,12 @@
                     @endif
                     
                     <div class="row">
-                        <div class="col-md-4">
+                        <div class="col-md-3">
                             @if (!empty($imagePath))
                                 <img src="{{ asset($imagePath) }}" alt="{{ $book->title }}" title="{{ $book->title }}" class="img-responsive img-thumbnail">
                             @endif
                         </div>
-                        <div class="col-md-8">
+                        <div class="col-md-9">
                             <div class="row">
                                 <div class="col-md-4"><span class="pull-right">Title</span></div>
                                 <div class="col-md-8">{{ $book->title }}</div>

@@ -2,18 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Book;
 
 class BookController extends Controller
 {
-    
-    /**
-     * Cover image storage path.
-     *
-     * @var array
-     */
-    protected $covers = 'public/covers';
         
     /**
      * Book validation rules.
@@ -22,15 +16,19 @@ class BookController extends Controller
      */
     protected $rules = [
         'title' => [
-            'required'
+            'string',
+            'required',
+            'max:255'
         ],
         'author' => [
+            'string',
             'required',
+            'max:255',
             'regex:/.+, .+/' # AUTHORS MUST BE IN THE FORM LAST, FIRST
         ],
         'publication_date' => [
             'nullable',
-            'date_format:Y-m-d'
+            'date'
         ],
         'isbn13' => [
             'nullable',
@@ -61,8 +59,6 @@ class BookController extends Controller
      */
     public function index()
     {
-        $user = \Auth::user();
-        
         $orderby = 'position';
         $desc = filter_input(INPUT_GET, 'desc', FILTER_VALIDATE_BOOLEAN) === true ? true : false;
         
@@ -75,7 +71,7 @@ class BookController extends Controller
                 break;
         }
         
-        $books = $user->books()->orderBy($orderby, $desc ? 'desc' : 'asc')->get();
+        $books = Book::orderBy($orderby, $desc ? 'desc' : 'asc')->get();
         
         return view('books.index')->with([
             'books'=>$books,
@@ -105,14 +101,15 @@ class BookController extends Controller
     {
         $this->validate($request, $this->rules);
         
-        $position = \Auth::user()->countBooks(); # DEFAULT POSITION IS LAST
+        $position = Auth::user()->countBooks(); # DEFAULT POSITION IS LAST
         
+        # FIXME MINOR DRY VIOLATION, CONSOLIDATE IF APP BECOMES MORE COMPLEX
         $book = new Book;
-        $book->user_id = auth()->user()->id;
+        $book->user_id = Auth::user()->id;
         $book->title = filter_var($request->input('title'), FILTER_SANITIZE_STRING);
         $book->author = filter_var($request->input('author'), FILTER_SANITIZE_STRING);
         $book->isbn13 = filter_var($request->input('isbn13'), FILTER_SANITIZE_STRING);
-        $book->publication_date = !empty($request->input('publication_date')) ? filter_var($request->input('publication_date'), FILTER_SANITIZE_STRING) : null;
+        $book->publication_date = filter_var($request->input('publication_date'), FILTER_SANITIZE_STRING);
         $book->position = $position;
         $book->save();
         
@@ -133,8 +130,7 @@ class BookController extends Controller
      */
     public function show($id)
     {
-        $user = \Auth::user();
-        $book = $user->books()->where('id', $id)->firstOrFail();
+        $book = Book::where('id', $id)->firstOrFail();
         
         return view('books.show')->with([
             'imagePath'=>$book->getCoverPath(),
@@ -151,8 +147,7 @@ class BookController extends Controller
      */
     public function edit($id)
     {
-        $user = \Auth::user();
-        $book = $user->books()->where('id', $id)->firstOrFail();
+        $book = Book::where('id', $id)->firstOrFail();
 
         return view('books.edit')->with([
             'book'=>$book,
@@ -172,12 +167,11 @@ class BookController extends Controller
     {
         $this->validate($request, $this->rules);
         
-        $user = \Auth::user();
-        $book = $user->books()->where('id', $id)->firstOrFail();
+        $book = Book::findOrFail($id);
         $book->title = filter_var($request->input('title'), FILTER_SANITIZE_STRING);
         $book->author = filter_var($request->input('author'), FILTER_SANITIZE_STRING);
         $book->isbn13 = filter_var($request->input('isbn13'), FILTER_SANITIZE_STRING);
-        $book->publication_date = !empty($request->input('publication_date')) ? filter_var($request->input('publication_date'), FILTER_SANITIZE_STRING) : null;
+        $book->publication_date = filter_var($request->input('publication_date'), FILTER_SANITIZE_STRING);
         $book->save();
         
         if (filter_var($request->input('delete_cover'), FILTER_VALIDATE_BOOLEAN)) {
@@ -199,8 +193,7 @@ class BookController extends Controller
      */
     public function destroy($id)
     {
-        $user = \Auth::user();
-        $book = $user->books()->where('id', $id)->firstOrFail();
+        $book = Book::findOrFail($id);
         $title = $book->title;
         $book->delete();
         
@@ -217,9 +210,7 @@ class BookController extends Controller
      */
     public function moveup($id)
     {
-        $user = \Auth::user();
-        
-        $book = $user->books()->where('id', $id)->firstOrFail();
+        $book = Book::findOrFail($id);
         $book->moveUp();
         
         return redirect('books');
@@ -234,9 +225,7 @@ class BookController extends Controller
      */
     public function movedown($id)
     {
-        $user = \Auth::user();
-        
-        $book = $user->books()->where('id', $id)->firstOrFail();
+        $book = Book::findOrFail($id);
         $book->moveDown();
         
         return redirect('books');
