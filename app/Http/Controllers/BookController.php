@@ -84,7 +84,6 @@ class BookController extends Controller
      * 
      * @return Response
      */
-    #public function show(Book $book) FIXME
     public function show(Book $book)
     {
         return view('books.show')->with([

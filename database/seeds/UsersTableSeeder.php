@@ -18,7 +18,7 @@ class UsersTableSeeder extends Seeder
             $n = 10;
             
             # RANDOMIZE BOOK ORDER
-            $orders = range(0, $n);
+            $orders = range(0, $n-1);
             shuffle($orders);
             $books = factory(App\Book::class, $n)->make();
             

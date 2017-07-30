@@ -36,7 +36,7 @@
 
         @if ($errors->has('isbn13'))
             <span class="help-block">
-                <strong>{{ $errors->first('isbn13') }}</strong>
+                <strong>{{ $errors->first('publication_date') }}</strong>
             </span>
         @endif
     </div>

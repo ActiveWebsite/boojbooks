@@ -4,15 +4,14 @@ namespace App;
 
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Http\UploadedFile;
 use Collective\Html\Eloquent\FormAccessible;
-use App\Scopes\UserScope;
 use Storage;
 
 class Book extends Model
 {
     use FormAccessible;
+    use Traits\Sortable;
     
     /**
      * The table associated with the model.
@@ -26,7 +25,7 @@ class Book extends Model
 	 *
 	 * @var array
 	 */
-	protected $fillable = [];
+	protected $fillable = ['title', 'author', 'isbn13', 'publication_date', 'position'];
 
 	/**
 	 * The attributes excluded from the model's JSON form.
@@ -47,38 +46,25 @@ class Book extends Model
      *
      * @static array
      */
-    public static $coverExts = 
-        [
-            'gif',
-            'jpg',
-            'jpeg',
-            'png'
-        ];
+    public static $coverExts = [
+        'gif',
+        'jpg',
+        'jpeg',
+        'png'
+    ];
 
-    /**
-     * The "booting" method of the model.
-     *
-     * @return void
-     */
-    protected static function boot()
-    {
-        parent::boot();
-        
-        static::addGlobalScope(new UserScope); # ONLY LOAD CURRENT USER'S BOOKS
-    }
-
-    /**
-     * Create a new Eloquent model instance.
-     *
+	/**
+	 * Create a new book instance.
+	 * 
      * @param  array  $attributes
-     * @return void
-     */
-    public function __construct(array $attributes = [])
+	 * @return User
+	 */
+	public function __construct(array $attributes = [])
     {
-        parent::__construct($attributes);
+        $this->initializeMoves();
         
-        #$this->position = $this->position ?: $this->user->countBooks(); FIXME
-    }
+		return parent::__construct($attributes);
+	}
 
 	/**
 	 * Get book owner.
@@ -113,23 +99,6 @@ class Book extends Model
     }
 
 	/**
-	 * Repair the order column.
-	 * 
-	 * @return void
-	 */
-	protected function resort()
-    {
-        $books = self::orderBy('position')->get();
-        
-        foreach ($books as $key=>$book) {
-            if ($book->position != $key) {
-                $book->position = $key;
-                $book->save();
-            }
-        }
-	}
-
-	/**
 	 * Delete the model.
 	 * 
 	 * @return void
@@ -145,57 +114,14 @@ class Book extends Model
 	/**
 	 * Save model.
 	 * 
-	 * @param  arrat  $options
+	 * @param  array  $options
 	 * @return void
 	 */
 	public function save(array $options = [])
     {
-        $this->position = $this->position ?: $this->user->countBooks(); # DEFAULT POSITION IS LAST
+        $this->position = $this->position ?? $this->user->countBooks(); # DEFAULT POSITION IS LAST
+        
         parent::save($options);
-	}
-
-	/**
-	 * Move book up in list.
-	 * 
-	 * @return void
-	 */
-	public function moveUp()
-    {
-        $this->resort();
-        
-        $position = $this->position;
-        
-        $book2 = self::where('position', '<', $position)->orderBy('position', 'desc')->first();
-        if ($book2) {
-            DB::beginTransaction();
-            $this->position = $book2->position;
-            $this->save();
-            $book2->position = $position;
-            $book2->save();
-            DB::commit();
-        }
-	}
-
-	/**
-	 * Move book up in list.
-	 * 
-	 * @return void
-	 */
-	public function moveDown()
-    {
-        $this->resort();
-        
-        $position = $this->position;
-        
-        $book2 = self::where('position', '>', $position)->orderBy('position', 'asc')->first();
-        if ($book2) {
-            DB::beginTransaction();
-            $this->position = $book2->position;
-            $this->save();
-            $book2->position = $position;
-            $book2->save();
-            DB::commit();
-        }
 	}
 
 	/**
