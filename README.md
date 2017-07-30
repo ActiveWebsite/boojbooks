@@ -21,7 +21,7 @@ Please use the [ORM](https://laravel.com/docs/5.2/eloquent) rather than crafting
 * Ensure that the *storage* and *bootstrap/cache* directories are writable, e.g. using **chmod o+w -R _folder_** command.
 * If using sqlite, be sure to create the sqlite database, e.g. using the command **touch database/database.sqlite**.
 * Copy the *.env.example* file to *.env* and change the configuration variables to suit your system. In particular, *APP_KEY* must be set, e.g. using the command **php artisan key:generate**.
-* Images are stored in *storage/public*. In order for this images to be displayable, a link to this folder to the public directory must be made. This can be done using the command ** php artisan storage:link **.
+* Images are stored in *storage/public*. In order for this images to be displayable, a link to this folder from the public directory must be made. This can be done using the command **php artisan storage:link**.
 * Run the migrations and, optionally, the seeds to generate the database tables.
 
 ## Live Test
