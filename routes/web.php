@@ -20,6 +20,6 @@ Auth::routes();
 Route::get('/home', function () {
     return redirect()->route('books.index');
 });
-Route::put('books/{id}/moveup', 'BookController@moveup')->name('books.moveup');
-Route::put('books/{id}/movedown', 'BookController@movedown')->name('books.movedown');
+Route::put('books/{book}/moveup', 'BookController@moveup')->name('books.moveup');
+Route::put('books/{book}/movedown', 'BookController@movedown')->name('books.movedown');
 Route::resource('books', 'BookController');

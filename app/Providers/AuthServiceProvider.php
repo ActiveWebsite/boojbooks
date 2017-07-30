@@ -13,7 +13,7 @@ class AuthServiceProvider extends ServiceProvider
      * @var array
      */
     protected $policies = [
-        'App\Model' => 'App\Policies\ModelPolicy',
+        'App\Book' => 'App\Policies\BookPolicy'
     ];
 
     /**
@@ -25,6 +25,8 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        //
+        Gate::resource('books', 'BookPolicy');
+        Gate::define('books.moveup', 'BookPolicy@move');
+        Gate::define('books.movedown', 'BookPolicy@move');
     }
 }

@@ -4,44 +4,11 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use App\Http\Requests\BookRequest;
 use App\Book;
 
 class BookController extends Controller
 {
-        
-    /**
-     * Book validation rules.
-     *
-     * @var array
-     */
-    protected $rules = [
-        'title' => [
-            'string',
-            'required',
-            'max:255'
-        ],
-        'author' => [
-            'string',
-            'required',
-            'max:255',
-            'regex:/.+, .+/' # AUTHORS MUST BE IN THE FORM LAST, FIRST
-        ],
-        'publication_date' => [
-            'nullable',
-            'date'
-        ],
-        'isbn13' => [
-            'nullable',
-            'size:13',
-            'regex:/^\d*$/'
-        ],
-        'cover' => [
-            'image',
-            'mimetypes:image/gif,image/jpeg,image/png',
-            'max:5000'
-        ]
-    ];
-    
     /**
      * Create a new controller instance.
      *
@@ -50,6 +17,7 @@ class BookController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
+        $this->authorizeResource(Book::class);
     }
 
     /**
@@ -71,7 +39,7 @@ class BookController extends Controller
                 break;
         }
         
-        $books = Book::orderBy($orderby, $desc ? 'desc' : 'asc')->get();
+        $books = Auth::user()->books()->orderBy($orderby, $desc ? 'desc' : 'asc')->get();
         
         return view('books.index')->with([
             'books'=>$books,
@@ -97,18 +65,9 @@ class BookController extends Controller
      * 
      * @return Response
      */
-    public function store(Request $request)
+    public function store(BookRequest $request)
     {
-        $this->validate($request, $this->rules);
-        
-        # FIXME MINOR DRY VIOLATION, CONSOLIDATE IF APP BECOMES MORE COMPLEX
-        $book = new Book;
-        $book->user_id = Auth::user()->id;
-        $book->title = filter_var($request->input('title'), FILTER_SANITIZE_STRING);
-        $book->author = filter_var($request->input('author'), FILTER_SANITIZE_STRING);
-        $book->isbn13 = filter_var($request->input('isbn13'), FILTER_SANITIZE_STRING);
-        $book->publication_date = filter_var($request->input('publication_date'), FILTER_SANITIZE_STRING);
-        $book->save();
+        $book = Auth::user()->books()->create($request->all());
         
         if ($request->hasFile('cover') && $request->file('cover')->isValid()) {
             $book->storeFormCover($request->file('cover'));
@@ -121,14 +80,13 @@ class BookController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  Book  $book
      * 
      * @return Response
      */
-    public function show($id)
+    #public function show(Book $book) FIXME
+    public function show(Book $book)
     {
-        $book = Book::where('id', $id)->firstOrFail();
-        
         return view('books.show')->with([
             'imagePath'=>$book->getCoverPath(),
             'book'=>$book,
@@ -138,14 +96,12 @@ class BookController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  Book  $book
      * 
      * @return Response
      */
-    public function edit($id)
+    public function edit(Book $book)
     {
-        $book = Book::where('id', $id)->firstOrFail();
-
         return view('books.edit')->with([
             'book'=>$book,
             'hasImage'=>$book->hasCover() ? true : false # DETERMINES WHETHER TO SHOW THE DELETE CHECKBOX
@@ -155,20 +111,17 @@ class BookController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  int  $id
+     * @param  Book  $book
      * @param  Request  $request
      * 
      * @return Response
      */
-    public function update($id, Request $request)
+    public function update(Book $book, BookRequest $request)
     {
-        $this->validate($request, $this->rules);
-        
-        $book = Book::findOrFail($id);
-        $book->title = filter_var($request->input('title'), FILTER_SANITIZE_STRING);
-        $book->author = filter_var($request->input('author'), FILTER_SANITIZE_STRING);
-        $book->isbn13 = filter_var($request->input('isbn13'), FILTER_SANITIZE_STRING);
-        $book->publication_date = filter_var($request->input('publication_date'), FILTER_SANITIZE_STRING);
+        $book->title = $request->input('title');
+        $book->author = $request->input('author');
+        $book->isbn13 = $request->input('isbn13');
+        $book->publication_date = $request->input('publication_date');
         $book->save();
         
         if (filter_var($request->input('delete_cover'), FILTER_VALIDATE_BOOLEAN)) {
@@ -184,13 +137,12 @@ class BookController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  Book  $book
      * 
      * @return Response
      */
-    public function destroy($id)
+    public function destroy(Book $book)
     {
-        $book = Book::findOrFail($id);
         $title = $book->title;
         $book->delete();
         
@@ -201,13 +153,13 @@ class BookController extends Controller
     /**
      * Move resource up.
      *
-     * @param  int  $id
+     * @param  Book  $book
      * 
      * @return Response
      */
-    public function moveup($id)
+    public function moveup(Book $book)
     {
-        $book = Book::findOrFail($id);
+        $this->authorize('move', $book);
         $book->moveUp();
         
         return redirect('books');
@@ -216,13 +168,13 @@ class BookController extends Controller
     /**
      * Move resource down.
      *
-     * @param  int  $id
+     * @param  Book  $book
      * 
      * @return Response
      */
-    public function movedown($id)
+    public function movedown(Book $book)
     {
-        $book = Book::findOrFail($id);
+        $this->authorize('move', $book);
         $book->moveDown();
         
         return redirect('books');
