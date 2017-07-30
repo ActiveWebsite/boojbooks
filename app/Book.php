@@ -33,6 +33,15 @@ class Book extends Model
 	 * @var array
 	 */
 	protected $hidden = [];
+
+	/**
+	 * The attributes that should be cast to native types.
+	 *
+	 * @var array
+	 */
+	protected $casts = [
+        'user_id' => 'integer'
+    ];
     
     /**
      * Cover image storage path.
