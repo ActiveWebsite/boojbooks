@@ -11,11 +11,10 @@ Compose a site using the [Laravel](https://laravel.com/) framework that allows t
 
 Please use the [ORM](https://laravel.com/docs/5.6/eloquent) rather than crafting queries by hand. 
 
-##### Look through this list and pick 1 additional feature to implement
+##### Look through this list and pick one additional feature to implement
 
 * Handle image uploading while adding books to the list
-* Iintegrating an external API(Other than google books)
+* Implement an external API (Other than google books)
 * Create a books API using Laravel
 * Fulltext search
 * Continuous Integration
-
