@@ -6,11 +6,16 @@ Compose a site using the [Laravel](https://laravel.com/) framework that allows t
 * Change the order of the books in the list
 * Sort the list of books by their author
 * Display a book detail page with a minimum of author, publication date, and title
+* Include unit tests
+* Deploy it on the cloud - be prepared to describe your process on deployment
 
-Please use the [ORM](https://laravel.com/docs/5.2/eloquent) rather than crafting queries by hand. 
+Please use the [ORM](https://laravel.com/docs/5.6/eloquent) rather than crafting queries by hand. 
 
-##### Bonus points!
+##### Look through this list and pick 1 additional feature to implement
 
-* Deploy it for real so we can play with it! (and then tell us about how you deployed it)
 * Handle image uploading while adding books to the list
-* Do something fancy like integrating an external API or handling user authentication
+* Iintegrating an external API(Other than google books)
+* Create a books API using Laravel
+* Fulltext search
+* Continuous Integration
+
