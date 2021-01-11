@@ -1,0 +1,64 @@
+{
+  "intelephense.files.maxSize": 5000000,
+  "typescript.tsdk": "node_modules\\typescript\\lib",
+  "phpfmt.passes": [
+    "PSR2KeywordsLowerCase",
+    "PSR2LnAfterNamespace",
+    "PSR2CurlyOpenNextLine",
+    "PSR2ModifierVisibilityStaticOrder",
+    "PSR2SingleEmptyLineAndStripClosingTag",
+    "ReindentSwitchBlocks",
+    "AllmanStyleBraces",
+    "AutoSemicolon",
+    "ClassToSelf",
+    "GeneratePHPDoc",
+    "NewLineBeforeReturn",
+    "OnlyOrderUseClauses",
+    "PrettyPrintDocBlocks",
+    "ShortArray",
+    "SmartLnAfterCurlyOpen",
+    "SortUseNameSpace",
+    "StrictComparison"
+  ],
+  "intelephense.environment.phpVersion": "7.4.0",
+  "intelephense.completion.insertUseDeclaration": true,
+  "intelephense.environment.documentRoot": "public/",
+  "intelephense.maxMemory": 512,
+  "intelephense.phpdoc.useFullyQualifiedNames": false,
+  "phpfmt.exclude": ["ReindentComments", "StripNewlineWithinClassBody"],
+  "phpfmt.indent_with_space": 4,
+  "[php]": {
+    "editor.defaultFormatter": "kokororin.vscode-phpfmt"
+  },
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "typescript.validate.enable": false,
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.tabSize": 2
+  },
+  "[vue-html]": {
+    "editor.tabSize": 2
+  },
+  "[json]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[vue]": {
+    "editor.defaultFormatter": "octref.vetur"
+  },
+  "[jsonc]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "prettier.arrowParens": "always",
+  "prettier.trailingComma": "es5",
+  "prettier.tabWidth": 2,
+  "prettier.semi": true,
+  "prettier.singleQuote": true,
+  "prettier.quoteProps": "as-needed",
+  "prettier.bracketSpacing": true,
+  "prettier.htmlWhitespaceSensitivity": "css",
+  "prettier.vueIndentScriptAndStyle": true,
+  "sqltools.connections": [],
+  "sqltools.useNodeRuntime": true
+}
