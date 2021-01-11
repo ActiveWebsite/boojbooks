@@ -15,22 +15,22 @@ Compose a site using the [Laravel](https://laravel.com/) or Vue framework that a
 To deploy:
 
 Fresh install:
-`git clone`
-`composer install`
-`npm i`
-`php artisan key:generate`
-configure .env variables
-`php artisan migrate`
-`php artisan db:seed` (if applicable)
-`npm run prod`
-any further actions you wish to take such as `php artisan route:cache`, `php artisan config:cache`, and `php artisan view:cache` for performance increases on a production site
+* `git clone`
+* `composer install`
+* `npm i`
+* `php artisan key:generate`
+* configure .env variables
+* `php artisan migrate`
+* `php artisan db:seed` (if applicable)
+* `npm run prod`
+* any further actions you wish to take such as `php artisan route:cache`, `php artisan config:cache`, and `php artisan view:cache` for performance increases on a production site
 
 Website upgrade:
-`git pull`
-`php artisan down`
-`composer install`
-`npm i`
-`php artisan migrate`
-actions such as clearing the route, config, and/or view caches and then recaching them
-`npm run prod`
-`php artisan up`
+* `git pull`
+* `php artisan down`
+* `composer install`
+* `npm i`
+* `php artisan migrate`
+* actions such as clearing the route, config, and/or view caches and then recaching them
+* `npm run prod`
+* `php artisan up`
