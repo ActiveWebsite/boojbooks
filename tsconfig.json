@@ -1,0 +1,31 @@
+{
+  "compilerOptions": {
+    "target": "esnext",
+    "module": "esnext",
+    "strict": true,
+    "jsx": "preserve",
+    "sourceMap": true,
+    "allowJs": true,
+    "strictNullChecks": true,
+    "experimentalDecorators": true,
+    "noImplicitReturns": true,
+    "noImplicitAny": true,
+    "esModuleInterop": true,
+    "importHelpers": true,
+    "moduleResolution": "node",
+    "allowSyntheticDefaultImports": true,
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["resources/*"],
+      "~/*": ["resources/js/*"]
+    },
+    "types": ["./node_modules/vuetify/types", "vuetify", "node"],
+    "typeRoots": ["./resources/js/types"],
+    "lib": ["esnext", "dom", "dom.iterable", "scripthost"],
+    "outDir": "public",
+    "traceResolution": false
+  },
+  "files": ["resources/vue-shims.d.ts", "resources/shims-tsx.d.ts"],
+  "include": ["resources/js/**/*"],
+  "exclude": ["node_modules"]
+}
