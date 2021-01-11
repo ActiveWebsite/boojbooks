@@ -26,8 +26,8 @@ Fresh install:
 * any further actions you wish to take such as `php artisan route:cache`, `php artisan config:cache`, and `php artisan view:cache` for performance increases on a production site
 
 Website upgrade:
-* `git pull`
 * `php artisan down`
+* `git pull`
 * `composer install`
 * `npm i`
 * `php artisan migrate`
