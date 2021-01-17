@@ -16,6 +16,8 @@ class CreateBooksTable extends Migration
         Schema::create('genres', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->bigInteger('user_id')->unsigned()->index();
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
         });
 
@@ -26,10 +28,13 @@ class CreateBooksTable extends Migration
             $table->date('publication_date')->nullable();
             $table->float('rating')->nullable();
 
-            $table->bigInteger('genre_id')->unsigned()->index();
+            $table->bigInteger('user_id')->unsigned()->index();
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+
+            $table->bigInteger('genre_id')->unsigned()->nullable()->index();
             $table->foreign('genre_id')->references('id')->on('genres')->onDelete('cascade');
 
-            $table->bigInteger('author_id')->unsigned()->index();
+            $table->bigInteger('author_id')->unsigned()->nullable()->index();
             $table->foreign('author_id')->references('id')->on('authors')->onDelete('cascade');
 
             $table->timestamps();
