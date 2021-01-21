@@ -8,25 +8,16 @@ use Tests\TestCase;
 
 class RegistrationTest extends TestCase
 {
-    use RefreshDatabase;
-
-    public function test_registration_screen_can_be_rendered()
-    {
-        $response = $this->get('/register');
-
-        $response->assertStatus(200);
-    }
-
     public function test_new_users_can_register()
     {
-        $response = $this->post('/register', [
+        $response = $this->post('/api/user/register', [
             'name' => 'Test User',
-            'email' => 'test@example.com',
+            'email' => 'test'.rand().'@example.com',
             'password' => 'password',
             'password_confirmation' => 'password',
         ]);
-
-        $this->assertAuthenticated();
-        $response->assertRedirect(RouteServiceProvider::HOME);
+        $data = json_decode($response->getContent(), true)['data'];
+        $response->assertStatus(200);
+        $this->assertIsNumeric($data['id']);
     }
 }
