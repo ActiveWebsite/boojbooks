@@ -58,4 +58,12 @@ class User extends Authenticatable
     protected $appends = [
         'profile_photo_url',
     ];
+
+    /**
+     * Get the lists for the user.
+    */
+    public function listings()
+    {
+        return $this->hasMany(Listing::class);
+    }
 }
