@@ -27,3 +27,8 @@ Route::get('/', function () {
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->name('dashboard');
+
+//Route::middleware(['auth:sanctum', 'verified'])->get('/listing', [\App\Http\Controllers\Listing::class, 'index'])->name('listing.index');
+
+Route::resource('listing', \App\Http\Controllers\ListingController::class);
+Route::resource('book', \App\Http\Controllers\BookController::class);
