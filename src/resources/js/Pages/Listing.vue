@@ -59,12 +59,12 @@
                           <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
                             <div class="">
                                   <div class="mb-4">
-                                      <label for="exampleFormControlInput1" class="block text-gray-700 text-sm font-bold mb-2">name:</label>
+                                      <label for="exampleFormControlInput1" class="block text-gray-700 text-sm font-bold mb-2">List Name:</label>
                                       <input type="text" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="exampleFormControlInput1" placeholder="Enter name" v-model="form.name">
                                       <div v-if="$page.props.errors.title" class="text-red-500">{{ $page.props.errors.title[0] }}</div>
                                   </div>
                                   <div class="mb-4">
-                                      <label for="exampleFormControlInput2" class="block text-gray-700 text-sm font-bold mb-2">Body:</label>
+                                      <label for="exampleFormControlInput2" class="block text-gray-700 text-sm font-bold mb-2">List Description:</label>
                                       <textarea class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="exampleFormControlInput2" v-model="form.body" placeholder="Enter Body"></textarea>
                                       <div v-if="$page.props.errors.title" class="text-red-500">{{ $page.props.errors.title[0] }}</div>
                                   </div>

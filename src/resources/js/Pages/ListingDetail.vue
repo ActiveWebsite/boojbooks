@@ -71,12 +71,7 @@
               </draggable>
             </template>
           </v-data-table>
-          <button
-            @click="openModal()"
-            class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded my-3"
-          >
-            Add New Book
-          </button>
+          <v-btn @click="openModal()" class="success"> Add New Book </v-btn>
           <div
             class="fixed z-10 inset-0 overflow-y-auto ease-out duration-400"
             v-if="isOpen"
