@@ -61,7 +61,7 @@ class ListingController extends Controller
     {
         return Inertia::render('ListingDetail', [
             'listing' => Listing::find($id),
-            'books' => Listing::find($id)->books()->get(),
+            'books' => Listing::find($id)->books()->orderBy('list_order')->get(),
          ]);
     }
 

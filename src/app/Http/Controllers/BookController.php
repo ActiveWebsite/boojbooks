@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Validator;
 use App\Models\Book;
+use App\Models\Listing;
 
 class BookController extends Controller
 {
@@ -69,9 +70,9 @@ class BookController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Request $request, $id)
+    public function show(Request $request, Listing $listing, Book $book)
     {
-        return Book::find($id);
+        return $book;
         /*
         return Inertia::render('ListingDetail', [
             'listing' => Listing::get($id)
@@ -86,17 +87,16 @@ class BookController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Book $book)
     {
+
         Validator::make($request->all(), [
             'title' => ['required'],
         ])->validate();
   
-        if ($request->has('id')) {
-            Book::find($request->input('id'))->update($request->all());
+           $book->update($request->all());
             return redirect()->back()
                     ->with('message', 'Book Updated Successfully.');
-        }
     }
 
     /**
@@ -105,11 +105,9 @@ class BookController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request, $id)
+    public function destroy(Request $request, Book $book)
     {
-        if ($request->has('id')) {
-            Book::find($request->input('id'))->delete();
+            $book->delete();
             return redirect()->back()->with('message', 'Book Deleted Successfully.');
-        }
     }
 }

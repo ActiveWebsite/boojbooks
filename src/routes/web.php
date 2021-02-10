@@ -32,3 +32,4 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
 
 Route::resource('listing', \App\Http\Controllers\ListingController::class);
 Route::resource('book', \App\Http\Controllers\BookController::class);
+Route::resource('listing.book', \App\Http\Controllers\BookController::class);
