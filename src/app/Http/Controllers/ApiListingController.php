@@ -3,12 +3,13 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Http\JsonResponse;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Validator;
 use App\Models\Listing;
 use App\Models\Book;
 
-class ListingController extends Controller
+class ApiListingController extends Controller
 {
 
     public function __construct()
@@ -23,10 +24,7 @@ class ListingController extends Controller
      */
     public function index(Request $request)
     {
-        //return $request->user()->listings();
-        return Inertia::render('Listing', [
-            'listings' => $request->user()->listings()->get()
-         ]);
+        return $request->user()->listings()->get();
     }
 
     /**
@@ -37,10 +35,13 @@ class ListingController extends Controller
      */
     public function store(Request $request)
     {
-        Validator::make($request->all(), [
+        $v = Validator::make($request->all(), [
             'name' => ['required'],
-        ])->validate();
+        ]);
         
+        if ($v->fails()){
+            return response()->json(['errors' => $v->errors()], JsonResponse::HTTP_UNPROCESSABLE_ENTITY);
+        }
         //$request->request->add(['user_id' => $request()->user()->id]);
 
         $listing = new Listing;
@@ -48,8 +49,8 @@ class ListingController extends Controller
         $listing->user_id = $request->user()->id;
         $listing->save();
   
-        return redirect()->back()
-                    ->with('message', 'Listing Created Successfully.');
+        return $listing;
+
     }
 
     /**
@@ -61,10 +62,7 @@ class ListingController extends Controller
     public function show(Request $request, Listing $listing)
     {   
 
-        return Inertia::render('ListingDetail', [
-                'listing' => $listing,
-                'books' => $listing->books()->orderBy('list_order')->get(),
-             ]);
+        return $listing;
 
     }
 
@@ -77,15 +75,18 @@ class ListingController extends Controller
      */
     public function update(Request $request, Listing $listing)
     {
-        Validator::make($request->all(), [
+        $v = Validator::make($request->all(), [
             'name' => ['required'],
-        ])->validate();
-  
-        if ($request->has('id')) {
-            $listing->update($request->all());
-            return redirect()->back()
-                    ->with('message', 'Listing Updated Successfully.');
+        ]);
+
+        if ($v->fails()){
+            return response()->json(['errors' => $v->errors()], JsonResponse::HTTP_UNPROCESSABLE_ENTITY);
         }
+  
+        $listing->update($request->all());
+
+        return $listing;
+
     }
 
     /**
@@ -96,10 +97,7 @@ class ListingController extends Controller
      */
     public function destroy(Request $request, Listing $listing)
     {
-        if ($request->has('id')) {
-            $listing->delete();
-            return redirect()->back()->with('message', 'List Deleted Successfully.');
-        }
+        return $listing->delete();
     }
 
 }

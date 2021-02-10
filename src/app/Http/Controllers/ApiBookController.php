@@ -3,19 +3,32 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Http\JsonResponse;
 
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Validator;
 use App\Models\Book;
 use App\Models\Listing;
 
-class BookController extends Controller
+class ApiBookController extends Controller
 {
 
     public function __construct()
     {
         $this->middleware(['auth:sanctum', 'verified', 'has_owner']);
     }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function index(Request $request, Listing $listing)
+    {
+        return $listing->books()->get();
+    }
+
 
 
     /**
@@ -24,12 +37,21 @@ class BookController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, Listing $listing)
     {
-        Validator::make($request->all(), [
+
+        $v = Validator::make($request->all(), [
             'title' => ['required'],
-            'listing_id' => ['required']
-        ])->validate();
+            'description' => ['required'],
+        ]);
+        
+        if ($v->fails()){
+            return response()->json(['errors' => $v->errors()], JsonResponse::HTTP_UNPROCESSABLE_ENTITY);
+        }
+
+        if(!$listing->id){
+            abort(404);
+        }
         
         //$request->request->add(['user_id' => $request()->user()->id]);
 
@@ -37,16 +59,15 @@ class BookController extends Controller
         $book = new Book;
         $book->title = $request->title;
         $book->description = $request->description;
-        $book->listing_id = $request->listing_id;
-        $book->list_order = $request->list_order;
+        $book->listing_id = $listing->id;
+        $book->list_order = ($request->list_order) ? $request->list_order : $listing->books()->count();
         $book->author = $request->author;
         $book->published = $request->published;
         $book->length = $request->length;
         $book->rating = $request->rating;
         $book->save();
   
-        return redirect()->back()
-                    ->with('message', 'Book Created Successfully.');
+        return $book;
     }
 
     /**
@@ -61,9 +82,7 @@ class BookController extends Controller
             abort(404);
         }
 
-        return Inertia::render('BookDetail', [
-            'book' => $book
-         ]);
+        return $book;
         
     }
 
@@ -74,16 +93,19 @@ class BookController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Book $book)
+    public function update(Request $request, Listing $listing, Book $book)
     {
 
-        Validator::make($request->all(), [
+        $v = Validator::make($request->all(), [
             'title' => ['required'],
-        ])->validate();
+        ]);
   
-           $book->update($request->all());
-            return redirect()->back()
-                    ->with('message', 'Book Updated Successfully.');
+        if ($v->fails()){
+            return response()->json(['errors' => $v->errors()], JsonResponse::HTTP_UNPROCESSABLE_ENTITY);
+        }
+
+        $book->update($request->all());
+        return $book;
     }
 
     /**
@@ -92,9 +114,8 @@ class BookController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request, Book $book)
+    public function destroy(Request $request, Listing $listing, Book $book)
     {
-            $book->delete();
-            return redirect()->back()->with('message', 'Book Deleted Successfully.');
+        return $book->delete();
     }
 }

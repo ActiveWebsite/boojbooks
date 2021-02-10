@@ -63,6 +63,9 @@
                   <td>
                     <v-icon small @click="edit(book)"> mdi-pencil </v-icon>
                     <v-icon small @click="deleteItem(book)"> mdi-delete </v-icon>
+                    <a :href="`/listing/${listing.id}/book/${book.id}`">
+                      <v-icon small @click="">mdi-dots-horizontal</v-icon>
+                    </a>
                   </td>
                 </tr>
               </draggable>

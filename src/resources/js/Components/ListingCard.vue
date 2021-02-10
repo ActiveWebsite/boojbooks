@@ -27,7 +27,7 @@
             <v-card-actions>
             <v-spacer></v-spacer>
             <v-btn icon :href="'listing/' + list.id">
-                <v-icon>mdi-star</v-icon>
+                <v-icon>mdi-book-open-page-variant</v-icon>
             </v-btn>
             <v-btn v-on:click="$emit('delete')"icon>
                 <v-icon>mdi-delete</v-icon>
