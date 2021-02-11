@@ -1,7 +1,6 @@
 <template>
   <v-layout>
     <v-icon small class="page__grab-icon" v-show="active"> mdi-arrow-all </v-icon>
-    {{ order }}
   </v-layout>
 </template>
 

@@ -1875,7 +1875,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: ["order", "active", "book", "listing"],
   watch: {
@@ -33324,8 +33323,7 @@ var render = function() {
           attrs: { small: "" }
         },
         [_vm._v(" mdi-arrow-all ")]
-      ),
-      _vm._v("\n  " + _vm._s(_vm.order) + "\n")
+      )
     ],
     1
   )
