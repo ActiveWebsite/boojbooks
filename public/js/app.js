@@ -1877,7 +1877,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  props: ["order", "active", "book"],
+  props: ["order", "active", "book", "listing"],
   watch: {
     $props: {
       deep: true,
@@ -1888,10 +1888,11 @@ __webpack_require__.r(__webpack_exports__);
           var data = {
             id: this.book.id,
             list_order: this.order,
-            title: this.book.title
+            title: this.book.title,
+            description: this.book.description
           };
           data._method = "PUT";
-          axios.post("/book/" + this.book.id + "/", data).then(function (response) {
+          axios.post("/book/" + this.book.id, data).then(function (response) {
             console.log(response);
           });
         }
@@ -4911,6 +4912,11 @@ var _methods;
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+//
+//
+//
+//
+//
 //
 //
 //
@@ -38736,7 +38742,8 @@ var render = function() {
                                     attrs: {
                                       book: book,
                                       order: index,
-                                      active: _vm.draggable
+                                      active: _vm.draggable,
+                                      listing: _vm.listing.id
                                     }
                                   })
                                 ],

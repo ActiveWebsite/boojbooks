@@ -7,7 +7,7 @@
 
 <script>
 export default {
-  props: ["order", "active", "book"],
+  props: ["order", "active", "book", "listing"],
 
   watch: {
     $props: {
@@ -15,9 +15,14 @@ export default {
       handler: function (newValue, oldValue) {
         console.log(newValue + " " + oldValue);
         if (this.active) {
-          var data = { id: this.book.id, list_order: this.order, title: this.book.title };
+          var data = {
+            id: this.book.id,
+            list_order: this.order,
+            title: this.book.title,
+            description: this.book.description,
+          };
           data._method = "PUT";
-          axios.post("/book/" + this.book.id + "/", data).then((response) => {
+          axios.post("/book/" + this.book.id, data).then((response) => {
             console.log(response);
           });
         }

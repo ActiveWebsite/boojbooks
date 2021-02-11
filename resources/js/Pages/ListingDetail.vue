@@ -54,7 +54,12 @@
               >
                 <tr v-for="(book, index) in props.items" :key="index">
                   <td>
-                    <DragWidget :book="book" :order="index" :active="draggable" />
+                    <DragWidget
+                      :book="book"
+                      :order="index"
+                      :active="draggable"
+                      :listing="listing.id"
+                    />
                   </td>
                   <td>{{ book.title }}</td>
                   <td>{{ book.description }}</td>
