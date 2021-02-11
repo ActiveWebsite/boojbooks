@@ -75,11 +75,11 @@ return [
 
         'pgsql' => [
             'driver' => 'pgsql',
-            'host' => $DATABASE_URL["host"],
-            'port' => $DATABASE_URL["port"],
-            'database' => ltrim($DATABASE_URL["path"], "/"),
-            'username' => $DATABASE_URL["user"],
-            'password' => $DATABASE_URL["pass"],
+            'host' => ($in_production)? $DATABASE_URL["host"] : 'localhost',
+            'port' => ($in_production)? $DATABASE_URL["port"] : '5432',
+            'database' => ($in_production) ? ltrim($DATABASE_URL["path"], "/") : 'database',
+            'username' => ($in_production) ? $DATABASE_URL["user"] : 'username',
+            'password' => ($in_production) ? $DATABASE_URL["pass"] : 'password',
             'charset' => 'utf8',
             'prefix' => '',
             'prefix_indexes' => true,

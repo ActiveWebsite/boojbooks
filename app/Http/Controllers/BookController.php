@@ -17,6 +17,17 @@ class BookController extends Controller
         $this->middleware(['auth:sanctum', 'verified', 'has_owner']);
     }
 
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index(Request $request)
+    {
+        return;
+    }
+
+
 
     /**
      * Store a newly created resource in storage.
