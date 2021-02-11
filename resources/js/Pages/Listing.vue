@@ -58,6 +58,7 @@
                                 <v-text-field
                                   v-model="form.name"
                                   label="List Name"
+                                  :rules="nameRules"
                                 ></v-text-field>
                             </div>
                           </div>
@@ -103,6 +104,10 @@
             return {
                 editMode: false,
                 isOpen: false,
+                 nameRules: [
+                  (v) => !!v || "Required",
+                  (v) => (v && v.length <= 100) || "Must be less than 100 characters",
+                ],
                 form: {
                     name: null,
                     body: null,

@@ -4825,6 +4825,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -4837,6 +4838,11 @@ __webpack_require__.r(__webpack_exports__);
     return {
       editMode: false,
       isOpen: false,
+      nameRules: [function (v) {
+        return !!v || "Required";
+      }, function (v) {
+        return v && v.length <= 100 || "Must be less than 100 characters";
+      }],
       form: {
         name: null,
         body: null
@@ -5086,6 +5092,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
 
 
 
@@ -5110,9 +5117,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       menu2: false,
       name: "",
       nameRules: [function (v) {
-        return !!v || "Name is required";
+        return !!v || "Required";
       }, function (v) {
-        return v && v.length <= 100 || "Name must be less than 100 characters";
+        return v && v.length <= 100 || "Must be less than 100 characters";
       }],
       select: null,
       items: [1, 2, 3, 4, 5],
@@ -38447,7 +38454,10 @@ var render = function() {
                                 {},
                                 [
                                   _c("v-text-field", {
-                                    attrs: { label: "List Name" },
+                                    attrs: {
+                                      label: "List Name",
+                                      rules: _vm.nameRules
+                                    },
                                     model: {
                                       value: _vm.form.name,
                                       callback: function($$v) {
@@ -38904,7 +38914,7 @@ var render = function() {
                                               _c("v-text-field", {
                                                 attrs: {
                                                   label: "Book Title",
-                                                  required: ""
+                                                  rules: _vm.nameRules
                                                 },
                                                 model: {
                                                   value: _vm.form.title,
@@ -38920,7 +38930,10 @@ var render = function() {
                                               }),
                                               _vm._v(" "),
                                               _c("v-text-field", {
-                                                attrs: { label: "Description" },
+                                                attrs: {
+                                                  label: "Description",
+                                                  rules: _vm.nameRules
+                                                },
                                                 model: {
                                                   value: _vm.form.description,
                                                   callback: function($$v) {

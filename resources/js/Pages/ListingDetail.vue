@@ -106,12 +106,13 @@
                           <v-text-field
                             v-model="form.title"
                             label="Book Title"
-                            required
+                            :rules="nameRules"
                           ></v-text-field>
 
                           <v-text-field
                             v-model="form.description"
                             label="Description"
+                            :rules="nameRules"
                           ></v-text-field>
 
                           <v-text-field
@@ -203,8 +204,8 @@ export default {
       menu2: false,
       name: "",
       nameRules: [
-        (v) => !!v || "Name is required",
-        (v) => (v && v.length <= 100) || "Name must be less than 100 characters",
+        (v) => !!v || "Required",
+        (v) => (v && v.length <= 100) || "Must be less than 100 characters",
       ],
       select: null,
       items: [1, 2, 3, 4, 5],
