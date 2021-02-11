@@ -298,7 +298,7 @@ export default {
         preserveScroll: true,
       });
       */
-      console.log(this.$inertia.post(`/listing/${this.listing.id}/book/`, this.form));
+      this.$inertia.post("/book/", this.form);
       this.closeModal();
       this.editMode = false;
     },
