@@ -4828,12 +4828,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -4916,18 +4910,6 @@ var _methods;
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 //
 //
 //
@@ -5212,13 +5194,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       // this.reset();
       this.form.list_order = this.books.length;
       console.log("list order");
-      /*   
-      this.form.post("/book/", {
-        preserveScroll: true,
-      });
-      */
+      this.form.post("/book", {
+        preserveScroll: true
+      }); //this.$inertia.post("/book", this.form);
 
-      this.$inertia.post("/book", this.form);
       this.closeModal();
       this.editMode = false;
     },
@@ -38451,120 +38430,23 @@ var render = function() {
                                 "bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4"
                             },
                             [
-                              _c("div", {}, [
-                                _c("div", { staticClass: "mb-4" }, [
-                                  _c(
-                                    "label",
-                                    {
-                                      staticClass:
-                                        "block text-gray-700 text-sm font-bold mb-2",
-                                      attrs: { for: "exampleFormControlInput1" }
-                                    },
-                                    [_vm._v("List Name:")]
-                                  ),
-                                  _vm._v(" "),
-                                  _c("input", {
-                                    directives: [
-                                      {
-                                        name: "model",
-                                        rawName: "v-model",
-                                        value: _vm.form.name,
-                                        expression: "form.name"
-                                      }
-                                    ],
-                                    staticClass:
-                                      "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline",
-                                    attrs: {
-                                      type: "text",
-                                      id: "exampleFormControlInput1",
-                                      placeholder: "Enter name"
-                                    },
-                                    domProps: { value: _vm.form.name },
-                                    on: {
-                                      input: function($event) {
-                                        if ($event.target.composing) {
-                                          return
-                                        }
-                                        _vm.$set(
-                                          _vm.form,
-                                          "name",
-                                          $event.target.value
-                                        )
-                                      }
+                              _c(
+                                "div",
+                                {},
+                                [
+                                  _c("v-text-field", {
+                                    attrs: { label: "List Name" },
+                                    model: {
+                                      value: _vm.form.name,
+                                      callback: function($$v) {
+                                        _vm.$set(_vm.form, "name", $$v)
+                                      },
+                                      expression: "form.name"
                                     }
-                                  }),
-                                  _vm._v(" "),
-                                  _vm.$page.props.errors.title
-                                    ? _c(
-                                        "div",
-                                        { staticClass: "text-red-500" },
-                                        [
-                                          _vm._v(
-                                            _vm._s(
-                                              _vm.$page.props.errors.title[0]
-                                            )
-                                          )
-                                        ]
-                                      )
-                                    : _vm._e()
-                                ]),
-                                _vm._v(" "),
-                                _c("div", { staticClass: "mb-4" }, [
-                                  _c(
-                                    "label",
-                                    {
-                                      staticClass:
-                                        "block text-gray-700 text-sm font-bold mb-2",
-                                      attrs: { for: "exampleFormControlInput2" }
-                                    },
-                                    [_vm._v("List Description:")]
-                                  ),
-                                  _vm._v(" "),
-                                  _c("textarea", {
-                                    directives: [
-                                      {
-                                        name: "model",
-                                        rawName: "v-model",
-                                        value: _vm.form.body,
-                                        expression: "form.body"
-                                      }
-                                    ],
-                                    staticClass:
-                                      "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline",
-                                    attrs: {
-                                      id: "exampleFormControlInput2",
-                                      placeholder: "Enter Body"
-                                    },
-                                    domProps: { value: _vm.form.body },
-                                    on: {
-                                      input: function($event) {
-                                        if ($event.target.composing) {
-                                          return
-                                        }
-                                        _vm.$set(
-                                          _vm.form,
-                                          "body",
-                                          $event.target.value
-                                        )
-                                      }
-                                    }
-                                  }),
-                                  _vm._v(" "),
-                                  _vm.$page.props.errors.title
-                                    ? _c(
-                                        "div",
-                                        { staticClass: "text-red-500" },
-                                        [
-                                          _vm._v(
-                                            _vm._s(
-                                              _vm.$page.props.errors.title[0]
-                                            )
-                                          )
-                                        ]
-                                      )
-                                    : _vm._e()
-                                ])
-                              ])
+                                  })
+                                ],
+                                1
+                              )
                             ]
                           ),
                           _vm._v(" "),
@@ -39056,50 +38938,7 @@ var render = function() {
                                                   },
                                                   expression: "form.author"
                                                 }
-                                              }),
-                                              _vm._v(" "),
-                                              _c(
-                                                "v-btn",
-                                                {
-                                                  staticClass: "mr-4",
-                                                  attrs: { color: "success" },
-                                                  on: { click: _vm.validate }
-                                                },
-                                                [
-                                                  _vm._v(
-                                                    "\n                          Validate\n                        "
-                                                  )
-                                                ]
-                                              ),
-                                              _vm._v(" "),
-                                              _c(
-                                                "v-btn",
-                                                {
-                                                  staticClass: "mr-4",
-                                                  attrs: { color: "error" },
-                                                  on: { click: _vm.reset }
-                                                },
-                                                [
-                                                  _vm._v(
-                                                    "\n                          Reset Form\n                        "
-                                                  )
-                                                ]
-                                              ),
-                                              _vm._v(" "),
-                                              _c(
-                                                "v-btn",
-                                                {
-                                                  attrs: { color: "warning" },
-                                                  on: {
-                                                    click: _vm.resetValidation
-                                                  }
-                                                },
-                                                [
-                                                  _vm._v(
-                                                    "\n                          Reset Validation\n                        "
-                                                  )
-                                                ]
-                                              )
+                                              })
                                             ],
                                             1
                                           ),

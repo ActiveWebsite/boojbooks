@@ -115,18 +115,6 @@
                             v-model="form.author"
                             label="author"
                           ></v-text-field>
-
-                          <v-btn color="success" class="mr-4" @click="validate">
-                            Validate
-                          </v-btn>
-
-                          <v-btn color="error" class="mr-4" @click="reset">
-                            Reset Form
-                          </v-btn>
-
-                          <v-btn color="warning" @click="resetValidation">
-                            Reset Validation
-                          </v-btn>
                         </v-form>
 
                         <div v-if="$page.props.errors.title" class="text-red-500">
@@ -293,12 +281,12 @@ export default {
       // this.reset();
       this.form.list_order = this.books.length;
       console.log("list order");
-      /*   
-      this.form.post("/book/", {
+
+      this.form.post("/book", {
         preserveScroll: true,
       });
-      */
-      this.$inertia.post("/book", this.form);
+
+      //this.$inertia.post("/book", this.form);
       this.closeModal();
       this.editMode = false;
     },
