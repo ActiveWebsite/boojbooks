@@ -5211,9 +5211,14 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       //  this.$inertia.post('/book', data)
       // this.reset();
       this.form.list_order = this.books.length;
+      console.log("list order");
+      /*   
       this.form.post("/book/", {
-        preserveScroll: true
+        preserveScroll: true,
       });
+      */
+
+      this.$inertia.post("/book/", this.form);
       this.closeModal();
       this.editMode = false;
     },
