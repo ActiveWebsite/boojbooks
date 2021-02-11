@@ -11,11 +11,13 @@
           <div
             class="bg-teal-100 border-t-4 border-teal-500 rounded-b text-teal-900 px-4 py-3 shadow-md my-3"
             role="alert"
-            v-if="$page.props.flash.message"
+            v-if="$page.props.flash.message || $page.props.errors.title"
           >
             <div class="flex">
               <div>
-                <p class="text-sm">{{ $page.props.flash.message }}</p>
+                <p class="text-sm">
+                  {{ $page.props.flash.message }} {{ $page.props.errors.title }}
+                </p>
               </div>
             </div>
           </div>
@@ -71,7 +73,13 @@
               </draggable>
             </template>
           </v-data-table>
-          <v-btn @click="openModal()" class="success"> Add New Book </v-btn>
+          <button
+            @click="openModal()"
+            type="button"
+            class="inline-flex justify-center w-full rounded-md border border-gray-300 px-4 py-2 bg-white text-base leading-6 font-medium text-gray-700 shadow-sm hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue transition ease-in-out duration-150 sm:text-sm sm:leading-5"
+          >
+            <v-icon>mdi-plus</v-icon> Add Book
+          </button>
           <div
             class="fixed z-10 inset-0 overflow-y-auto ease-out duration-400"
             v-if="isOpen"
@@ -103,23 +111,26 @@
 
                           <v-text-field
                             v-model="form.description"
-                            label="description"
-                          ></v-text-field>
-
-                          <v-text-field
-                            v-model="form.rating"
-                            label="rating"
+                            label="Description"
                           ></v-text-field>
 
                           <v-text-field
                             v-model="form.author"
-                            label="author"
+                            label="Author"
+                          ></v-text-field>
+
+                          <v-text-field
+                            v-model="form.rating"
+                            type="number"
+                            label="Rating"
+                          ></v-text-field>
+
+                          <v-text-field
+                            v-model="form.length"
+                            type="number"
+                            label="Page Length"
                           ></v-text-field>
                         </v-form>
-
-                        <div v-if="$page.props.errors.title" class="text-red-500">
-                          {{ $page.props.errors.title[0] }}
-                        </div>
                       </div>
                     </div>
                   </div>

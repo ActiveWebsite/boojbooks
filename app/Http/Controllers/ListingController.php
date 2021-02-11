@@ -38,7 +38,7 @@ class ListingController extends Controller
     public function store(Request $request)
     {
         Validator::make($request->all(), [
-            'name' => ['required'],
+            'name' => ['required']
         ])->validate();
         
         //$request->request->add(['user_id' => $request()->user()->id]);
@@ -78,7 +78,7 @@ class ListingController extends Controller
     public function update(Request $request, Listing $listing)
     {
         Validator::make($request->all(), [
-            'name' => ['required'],
+            'name' => ['required']
         ])->validate();
   
         if ($request->has('id')) {

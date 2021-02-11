@@ -4825,8 +4825,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -4909,6 +4907,17 @@ var _methods;
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -38227,7 +38236,7 @@ var render = function() {
           "div",
           { staticClass: "max-w-7xl mx-auto sm:px-6 lg:px-8" },
           [
-            _vm.$page.props.flash.message
+            _vm.$page.props.flash.message || _vm.$page.props.errors.title
               ? _c(
                   "div",
                   {
@@ -38246,7 +38255,11 @@ var render = function() {
                         _c("div", { staticClass: "flex" }, [
                           _c("div", [
                             _c("p", { staticClass: "text-sm" }, [
-                              _vm._v(_vm._s(_vm.$page.props.flash.message))
+                              _vm._v(
+                                _vm._s(_vm.$page.props.flash.message) +
+                                  "  " +
+                                  _vm._s(_vm.$page.props.errors.title)
+                              )
                             ])
                           ])
                         ])
@@ -38631,7 +38644,7 @@ var render = function() {
                 "bg-white overflow-hidden shadow-xl sm:rounded-lg px-4 py-4"
             },
             [
-              _vm.$page.props.flash.message
+              _vm.$page.props.flash.message || _vm.$page.props.errors.title
                 ? _c(
                     "div",
                     {
@@ -38643,7 +38656,13 @@ var render = function() {
                       _c("div", { staticClass: "flex" }, [
                         _c("div", [
                           _c("p", { staticClass: "text-sm" }, [
-                            _vm._v(_vm._s(_vm.$page.props.flash.message))
+                            _vm._v(
+                              "\n                " +
+                                _vm._s(_vm.$page.props.flash.message) +
+                                " " +
+                                _vm._s(_vm.$page.props.errors.title) +
+                                "\n              "
+                            )
                           ])
                         ])
                       ])
@@ -38794,16 +38813,22 @@ var render = function() {
               }),
               _vm._v(" "),
               _c(
-                "v-btn",
+                "button",
                 {
-                  staticClass: "success",
+                  staticClass:
+                    "inline-flex justify-center w-full rounded-md border border-gray-300 px-4 py-2 bg-white text-base leading-6 font-medium text-gray-700 shadow-sm hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue transition ease-in-out duration-150 sm:text-sm sm:leading-5",
+                  attrs: { type: "button" },
                   on: {
                     click: function($event) {
                       return _vm.openModal()
                     }
                   }
                 },
-                [_vm._v(" Add New Book ")]
+                [
+                  _c("v-icon", [_vm._v("mdi-plus")]),
+                  _vm._v(" Add Book\n        ")
+                ],
+                1
               ),
               _vm._v(" "),
               _vm.isOpen
@@ -38895,7 +38920,7 @@ var render = function() {
                                               }),
                                               _vm._v(" "),
                                               _c("v-text-field", {
-                                                attrs: { label: "description" },
+                                                attrs: { label: "Description" },
                                                 model: {
                                                   value: _vm.form.description,
                                                   callback: function($$v) {
@@ -38910,7 +38935,25 @@ var render = function() {
                                               }),
                                               _vm._v(" "),
                                               _c("v-text-field", {
-                                                attrs: { label: "rating" },
+                                                attrs: { label: "Author" },
+                                                model: {
+                                                  value: _vm.form.author,
+                                                  callback: function($$v) {
+                                                    _vm.$set(
+                                                      _vm.form,
+                                                      "author",
+                                                      $$v
+                                                    )
+                                                  },
+                                                  expression: "form.author"
+                                                }
+                                              }),
+                                              _vm._v(" "),
+                                              _c("v-text-field", {
+                                                attrs: {
+                                                  type: "number",
+                                                  label: "Rating"
+                                                },
                                                 model: {
                                                   value: _vm.form.rating,
                                                   callback: function($$v) {
@@ -38925,39 +38968,25 @@ var render = function() {
                                               }),
                                               _vm._v(" "),
                                               _c("v-text-field", {
-                                                attrs: { label: "author" },
+                                                attrs: {
+                                                  type: "number",
+                                                  label: "Page Length"
+                                                },
                                                 model: {
-                                                  value: _vm.form.author,
+                                                  value: _vm.form.length,
                                                   callback: function($$v) {
                                                     _vm.$set(
                                                       _vm.form,
-                                                      "author",
+                                                      "length",
                                                       $$v
                                                     )
                                                   },
-                                                  expression: "form.author"
+                                                  expression: "form.length"
                                                 }
                                               })
                                             ],
                                             1
-                                          ),
-                                          _vm._v(" "),
-                                          _vm.$page.props.errors.title
-                                            ? _c(
-                                                "div",
-                                                { staticClass: "text-red-500" },
-                                                [
-                                                  _vm._v(
-                                                    "\n                        " +
-                                                      _vm._s(
-                                                        _vm.$page.props.errors
-                                                          .title[0]
-                                                      ) +
-                                                      "\n                      "
-                                                  )
-                                                ]
-                                              )
-                                            : _vm._e()
+                                          )
                                         ],
                                         1
                                       )

@@ -39,10 +39,9 @@ class BookController extends Controller
     {
         Validator::make($request->all(), [
             'title' => ['required'],
+            'description' => ['required'],
             'listing_id' => ['required']
         ])->validate();
-        
-        //$request->request->add(['user_id' => $request()->user()->id]);
 
 
         $book = new Book;
@@ -90,6 +89,7 @@ class BookController extends Controller
 
         Validator::make($request->all(), [
             'title' => ['required'],
+            'description' => ['required']
         ])->validate();
   
            $book->update($request->all());
