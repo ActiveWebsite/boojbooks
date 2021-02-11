@@ -5218,7 +5218,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       });
       */
 
-      this.$inertia.post("/book/", this.form);
+      console.log(this.$inertia.post("/listing/".concat(this.listing.id, "/book/"), this.form));
       this.closeModal();
       this.editMode = false;
     },
