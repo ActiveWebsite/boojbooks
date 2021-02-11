@@ -1876,15 +1876,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  props: ['order', 'active', 'book'],
+  props: ["order", "active", "book"],
   watch: {
     $props: {
       deep: true,
       handler: function handler(newValue, oldValue) {
-        console.log(newValue + ' ' + oldValue);
+        console.log(newValue + " " + oldValue);
 
         if (this.active) {
           var data = {
@@ -1892,8 +1890,8 @@ __webpack_require__.r(__webpack_exports__);
             list_order: this.order,
             title: this.book.title
           };
-          data._method = 'PUT';
-          axios.post('/book/' + this.book.id, data).then(function (response) {
+          data._method = "PUT";
+          axios.post("/book/" + this.book.id + "/", data).then(function (response) {
             console.log(response);
           });
         }
@@ -33319,9 +33317,9 @@ var render = function() {
           staticClass: "page__grab-icon",
           attrs: { small: "" }
         },
-        [_vm._v("\n     mdi-arrow-all\n     ")]
+        [_vm._v(" mdi-arrow-all ")]
       ),
-      _vm._v("\n     " + _vm._s(_vm.order) + "\n ")
+      _vm._v("\n  " + _vm._s(_vm.order) + "\n")
     ],
     1
   )
