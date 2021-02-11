@@ -24,7 +24,7 @@ class BookController extends Controller
      */
     public function index(Request $request)
     {
-        return;
+        return "Book";
     }
 
 
