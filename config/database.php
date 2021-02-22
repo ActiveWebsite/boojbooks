@@ -53,6 +53,12 @@ return [
             'foreign_key_constraints' => env('DB_FOREIGN_KEYS', true),
         ],
 
+        'phpunit' => [
+            'driver'   => 'sqlite',
+            'database' => storage_path('phpunit.sqlite'),
+            'prefix'   => '',
+        ],
+
         'mysql' => [
             'driver' => 'mysql',
             'url' => env('DATABASE_URL'),
@@ -72,7 +78,7 @@ return [
                 PDO::MYSQL_ATTR_SSL_CA => env('MYSQL_ATTR_SSL_CA'),
             ]) : [],
         ],
-
+        
         'pgsql' => [
             'driver' => 'pgsql',
             'host' => ($in_production)? $DATABASE_URL["host"] : 'localhost',
