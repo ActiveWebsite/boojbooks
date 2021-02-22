@@ -35,7 +35,7 @@ Postman collection (root) BoojBooks.postman_collection.json
 Clone the repo:
 
 ```sh
-git clone https://github.com/gerzahim/appointments.git appointments
+https://github.com/gerzahim/boojbooks.git
 cd src/booj-books
 ```
 
