@@ -1,0 +1,109 @@
+{
+	"info": {
+		"_postman_id": "cab7faf9-0e46-4d85-b9a8-425015c5bf36",
+		"name": "BoojBooks",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Book List",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://api.itbook.store/1.0/",
+					"protocol": "https",
+					"host": [
+						"api",
+						"itbook",
+						"store"
+					],
+					"path": [
+						"1.0",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Search Book",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://api.itbook.store/1.0/search/",
+					"protocol": "https",
+					"host": [
+						"api",
+						"itbook",
+						"store"
+					],
+					"path": [
+						"1.0",
+						"search",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get User List",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://booj-books.site/api/get-user-list/1",
+					"protocol": "http",
+					"host": [
+						"booj-books",
+						"site"
+					],
+					"path": [
+						"api",
+						"get-user-list",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Save Reading List",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "data",
+							"value": "[\n    {\n        \"title\": \"Learn Programming\",\n        \"subtitle\": \"Your Guided Tour Through the Programming Jungle\",\n        \"isbn13\": \"9781722834920\",\n        \"price\": \"$16.83\",\n        \"image\": \"https://itbook.store/img/books/9781722834920.png\",\n        \"url\": \"https://itbook.store/books/9781722834920\",\n        \"order\": \"1\"\n    },\n    {\n        \"title\": \"Elementary Algorithms\",\n        \"subtitle\": null,\n        \"isbn13\": \"1001606307729\",\n        \"price\": \"$0.00\",\n        \"image\": \"https://itbook.store/img/books/1001606307729.png\",\n        \"url\": \"https://itbook.store/books/1001606307729\",\n        \"order\": \"2\"\n    }\n]",
+							"type": "text"
+						},
+						{
+							"key": "user_id",
+							"value": "3",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://booj_books.test/api/set-list",
+					"protocol": "http",
+					"host": [
+						"booj_books",
+						"test"
+					],
+					"path": [
+						"api",
+						"set-list"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
