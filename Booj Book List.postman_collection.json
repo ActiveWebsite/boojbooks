@@ -1,0 +1,485 @@
+{
+	"info": {
+		"_postman_id": "e3abae52-02b5-4074-9677-b4218501ef07",
+		"name": "Booj Book List",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Validate Auth/Bearer Token",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "34H2daKVN6ApmCRgiKHjTkRiDFoQQVEk6BbiDslJ",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{hostname}}/api/user/",
+					"host": [
+						"{{hostname}}"
+					],
+					"path": [
+						"api",
+						"user",
+						""
+					]
+				},
+				"description": "CRUD User w/personal access tokens via sanctum. "
+			},
+			"response": []
+		},
+		{
+			"name": "Get listings",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "34H2daKVN6ApmCRgiKHjTkRiDFoQQVEk6BbiDslJ",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{hostname}}/api/listing/",
+					"host": [
+						"{{hostname}}"
+					],
+					"path": [
+						"api",
+						"listing",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get listing",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "34H2daKVN6ApmCRgiKHjTkRiDFoQQVEk6BbiDslJ",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{hostname}}/api/listing/1/",
+					"host": [
+						"{{hostname}}"
+					],
+					"path": [
+						"api",
+						"listing",
+						"1",
+						""
+					],
+					"query": [
+						{
+							"key": "",
+							"value": "",
+							"disabled": true
+						}
+					]
+				},
+				"description": "Get listing"
+			},
+			"response": []
+		},
+		{
+			"name": "Create listing",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "34H2daKVN6ApmCRgiKHjTkRiDFoQQVEk6BbiDslJ",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{hostname}}/api/listing/?name=MyList&description=MyListDescription",
+					"host": [
+						"{{hostname}}"
+					],
+					"path": [
+						"api",
+						"listing",
+						""
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "MyList"
+						},
+						{
+							"key": "description",
+							"value": "MyListDescription",
+							"description": "optional"
+						}
+					]
+				},
+				"description": "Create listing"
+			},
+			"response": []
+		},
+		{
+			"name": "Get books for list",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "34H2daKVN6ApmCRgiKHjTkRiDFoQQVEk6BbiDslJ",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{hostname}}/api/listing/29/book/",
+					"host": [
+						"{{hostname}}"
+					],
+					"path": [
+						"api",
+						"listing",
+						"29",
+						"book",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create book in listing",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "34H2daKVN6ApmCRgiKHjTkRiDFoQQVEk6BbiDslJ",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{hostname}}/api/listing/29/book/?title=Book Title&description=Book Description&author=My Author&published=2020-01-01&length=256&rating=5",
+					"host": [
+						"{{hostname}}"
+					],
+					"path": [
+						"api",
+						"listing",
+						"29",
+						"book",
+						""
+					],
+					"query": [
+						{
+							"key": "title",
+							"value": "Book Title"
+						},
+						{
+							"key": "description",
+							"value": "Book Description"
+						},
+						{
+							"key": "author",
+							"value": "My Author",
+							"description": "optional"
+						},
+						{
+							"key": "published",
+							"value": "2020-01-01",
+							"description": "optional"
+						},
+						{
+							"key": "length",
+							"value": "256",
+							"description": "optional"
+						},
+						{
+							"key": "rating",
+							"value": "5",
+							"description": "optional"
+						},
+						{
+							"key": "list_order",
+							"value": "0",
+							"description": "optional // defaults to end of list  // order managed by client",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get book in listing",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "34H2daKVN6ApmCRgiKHjTkRiDFoQQVEk6BbiDslJ",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{hostname}}/api/listing/29/book/52/",
+					"host": [
+						"{{hostname}}"
+					],
+					"path": [
+						"api",
+						"listing",
+						"29",
+						"book",
+						"52",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update listing",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "34H2daKVN6ApmCRgiKHjTkRiDFoQQVEk6BbiDslJ",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{hostname}}/api/listing/29/?name=testing",
+					"host": [
+						"{{hostname}}"
+					],
+					"path": [
+						"api",
+						"listing",
+						"29",
+						""
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "testing"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update book",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "34H2daKVN6ApmCRgiKHjTkRiDFoQQVEk6BbiDslJ",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{hostname}}/api/listing/29/book/53?title=New Title&description=Book Description&author=My Author&published=2020-01-01&length=256&rating=5",
+					"host": [
+						"{{hostname}}"
+					],
+					"path": [
+						"api",
+						"listing",
+						"29",
+						"book",
+						"53"
+					],
+					"query": [
+						{
+							"key": "title",
+							"value": "New Title"
+						},
+						{
+							"key": "description",
+							"value": "Book Description"
+						},
+						{
+							"key": "author",
+							"value": "My Author",
+							"description": "optional"
+						},
+						{
+							"key": "published",
+							"value": "2020-01-01",
+							"description": "optional"
+						},
+						{
+							"key": "length",
+							"value": "256",
+							"description": "optional"
+						},
+						{
+							"key": "rating",
+							"value": "5",
+							"description": "optional"
+						},
+						{
+							"key": "list_order",
+							"value": "0",
+							"description": "optional // defaults to end of list  // order managed by client",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete book",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "34H2daKVN6ApmCRgiKHjTkRiDFoQQVEk6BbiDslJ",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{hostname}}/api/listing/29/book/53",
+					"host": [
+						"{{hostname}}"
+					],
+					"path": [
+						"api",
+						"listing",
+						"29",
+						"book",
+						"53"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete listing",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "34H2daKVN6ApmCRgiKHjTkRiDFoQQVEk6BbiDslJ",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{hostname}}/api/listing/29/",
+					"host": [
+						"{{hostname}}"
+					],
+					"path": [
+						"api",
+						"listing",
+						"29",
+						""
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
